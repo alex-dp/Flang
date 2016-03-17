@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_wide"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/first_indic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/nonselecteditem_dot"
+            android:contentDescription="@string/foo"
+            android:src="@drawable/nonselecteditem_dot" />
+
+        <ImageView
+            android:id="@+id/second_indic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/nonselecteditem_dot"
+            android:contentDescription="@string/foo"
+            android:src="@drawable/nonselecteditem_dot" />
+
+        <ImageView
+            android:id="@+id/third_indic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/nonselecteditem_dot"
+            android:contentDescription="@string/foo"
+            android:src="@drawable/nonselecteditem_dot" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="51dp"
+        android:background="#00000000"
+        android:contentDescription="@string/foo"
+        android:onClick="next"
+        android:tint="@color/white" />
+</RelativeLayout>

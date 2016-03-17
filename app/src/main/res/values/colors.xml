@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccentLight">#ffab91</color>  <!--Deep Orange 200-->
+    <color name="colorAccent">#ff7043</color>       <!--400-->
+    <color name="colorPrimary">#f4511e</color>      <!--600-->
+    <color name="colorPrimaryDark">#d84315</color>  <!--800-->
+    <color name="halfTransparentWhite">#80FFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#FF808080</color>
+    <color name="lightGray">#FFC0C0C0</color>
+    <color name="green">#7cb342</color>
+    <color name="pale_green">#81c784</color>
+    <color name="red">#F44336</color>
+    <color name="pale_red">#ef5350</color>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="10"
+        android:dialogIcon="@drawable/ic_watch_later_black_24dp"
+        android:entries="@array/intervals"
+        android:entryValues="@array/intervalVals"
+        android:icon="@drawable/ic_watch_later_black_24dp"
+        android:key="interval"
+        android:summary="@string/notif_freq"
+        android:title="@string/interval" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:key="show_in_lockscreen"
+        android:summaryOff="@string/lockscreen_summary_off"
+        android:summaryOn="@string/lockscreen_summary_on"
+        android:title="@string/show_in_lockscreen" />
+
+</PreferenceScreen>

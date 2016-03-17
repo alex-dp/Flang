@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/intro_backg"
+    android:onClick="next"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_vertical_margin_wide"
+    android:paddingLeft="@dimen/activity_vertical_margin_wide"
+    android:paddingRight="@dimen/activity_vertical_margin_wide"
+    android:paddingStart="@dimen/activity_vertical_margin_wide"
+    android:paddingTop="@dimen/activity_vertical_margin_wide">
+
+    <ImageView
+        android:id="@+id/first_slide_image"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:contentDescription="@string/foo"
+        android:src="@drawable/books" />
+
+    <TextView
+        android:id="@+id/first_slide_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/first_slide_image"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:text="@string/first_slide"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

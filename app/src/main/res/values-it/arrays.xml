@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="intervals">
+        <item name="zero">Non inviare notifiche</item>
+        <item name="five">5 minuti</item>
+        <item name="ten">10 minuti</item>
+        <item name="twenty">20 minuti</item>
+        <item name="sixty">1 ora</item>
+        <item name="twoHours">2 ore</item>
+    </string-array>
+</resources>
