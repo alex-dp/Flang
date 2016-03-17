@@ -9,7 +9,8 @@
         <item name="twoHours">2 hours</item>
     </string-array>
 
-    <string-array name="intervalVals">
+    <string-array name="intervalVals"
+        translatable="false">
         <item name="zero">0</item>
         <item name="five">5</item>
         <item name="ten">10</item>

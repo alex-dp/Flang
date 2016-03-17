@@ -64,4 +64,5 @@
     <string name="test_in_phrase">test</string>
     <string name="my_average_test_score_in">My average test score in</string>
     <string name="is">is</string>
+    <string name="average">Average</string>
 </resources>

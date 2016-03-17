@@ -1,6 +1,5 @@
 package eu.depa.flang;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -12,19 +11,14 @@ public class Settings extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setTitle(R.string.settings);
-
+        
         getFragmentManager().beginTransaction().replace(android.R.id.content,
-                new PrefsFragment(getApplicationContext())).commit();
+                new PrefsFragment()).commit();
     }
 
     static public class PrefsFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
-
-        private final Context context;
-
-        public PrefsFragment(Context pContext) {
-            context = pContext;
-        }
-
+        
+        public PrefsFragment(){}
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -39,7 +33,7 @@ public class Settings extends BaseActivity {
 
             switch (preference.getKey()) {
                 case "interval":
-                    Constants.resetAlarm(context);
+                    Constants.resetAlarm(getActivity().getApplicationContext());
             }
             return true;
         }

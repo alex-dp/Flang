@@ -3,6 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/header_history"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_row"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="@dimen/twenty_four_dp"
+            android:text="@string/average"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/average"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:paddingEnd="@dimen/twenty_four_dp"
+            android:text="10"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/no_tests_group"
         android:layout_width="wrap_content"
@@ -29,6 +54,7 @@
 
     <ListView
         android:id="@+id/test_history_list"
+        android:layout_below="@id/header_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

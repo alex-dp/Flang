@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +42,9 @@ public class TestHistory extends BaseActivity {
             ResultListAdapter adapter = new ResultListAdapter(this, R.layout.results_list_row, data);
             list.setAdapter(adapter);
         }
+
+        TextView avg = (TextView) findViewById(R.id.average);
+        avg.setText(average());
     }
 
     private Boolean goodOrBad(String s) {

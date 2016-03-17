@@ -10,13 +10,11 @@ public class ScreenSlidePageFragment extends Fragment {
 
     public int pos;
 
-    public ScreenSlidePageFragment(int pPos) {
-        this.pos = pPos;
-    }
-
+    public ScreenSlidePageFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        this.pos = getArguments().getInt("pos");
         int[] fragments = {R.layout.intro_1,
                 R.layout.intro_2,
                 R.layout.intro_3};

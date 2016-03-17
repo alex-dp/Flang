@@ -106,7 +106,7 @@ public class NotificationService extends Service {
             SharedPreferences.Editor editor = prefs.edit();
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.ic_notification)
+                            .setSmallIcon(R.drawable.ic_short_text_gray_24dp)
                             .setContentTitle(translatedText)
                             .setContentText(chosen)
                             .setColor(Color.argb(0x00, 0xff, 0x3b, 0x3b))

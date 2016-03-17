@@ -109,7 +109,11 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment(position);
+            ScreenSlidePageFragment frag = new ScreenSlidePageFragment();
+            Bundle b = new Bundle();
+            b.putInt("pos", position);
+            frag.setArguments(b);
+            return frag;
         }
 
         @Override
