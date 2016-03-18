@@ -69,14 +69,19 @@ public class Test extends BaseActivity implements View.OnClickListener {
                 mom.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 totWidth = mom.getMeasuredWidth() + singlePad;
 
-                for (int i = 0; i < n_questions; i++) {
-                    views[i] = new ImageView(getBaseContext());
-                    float width = (totWidth / n_questions) - singlePad;
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int) width, 12);
-                    layoutParams.setMarginStart(singlePad);
-                    views[i].setImageDrawable(getDrawableM(R.drawable.gray_rect));
-                    notches.addView(views[i], layoutParams);
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < n_questions; i++) {
+                            views[i] = new ImageView(getBaseContext());
+                            float width = (totWidth / n_questions) - singlePad;
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int) width, 12);
+                            layoutParams.setMarginStart(singlePad);
+                            views[i].setImageDrawable(getDrawableM(R.drawable.gray_rect));
+                            notches.addView(views[i], layoutParams);
+                        }
+                    }
+                }).start();
 
                 mom.addView(notches, 0);
             }

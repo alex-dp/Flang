@@ -7,7 +7,8 @@
         android:id="@+id/header_history"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_row"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"

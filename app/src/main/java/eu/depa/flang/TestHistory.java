@@ -9,8 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class TestHistory extends BaseActivity {
             LinearLayout g = (LinearLayout) findViewById(R.id.no_tests_group);
             g.setVisibility(View.VISIBLE);
         } else {
+
+            RelativeLayout a = (RelativeLayout) findViewById(R.id.header_history);
+            a.setVisibility(View.VISIBLE);
             ResultLine[] data = new ResultLine[dates.size()];
 
             for (int i = 0; i < data.length; i++)
@@ -41,10 +46,10 @@ public class TestHistory extends BaseActivity {
 
             ResultListAdapter adapter = new ResultListAdapter(this, R.layout.results_list_row, data);
             list.setAdapter(adapter);
-        }
 
-        TextView avg = (TextView) findViewById(R.id.average);
-        avg.setText(average());
+            TextView avg = (TextView) findViewById(R.id.average);
+            avg.setText(average());
+        }
     }
 
     private Boolean goodOrBad(String s) {
@@ -60,10 +65,11 @@ public class TestHistory extends BaseActivity {
     }
 
     public String average() {
-        int sum = 0;
+        double sum = 0.0;
+        DecimalFormat df = new DecimalFormat("#.##");
         for (String s : grades)
             sum += Integer.parseInt(s);
-        return String.valueOf(sum / grades.size());
+        return String.valueOf(df.format(sum / grades.size()));
     }
 
     public void share(MenuItem item) {
