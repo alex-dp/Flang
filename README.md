@@ -11,4 +11,4 @@ It's released under the GNU GPL3
 Flang was born in the beginning of February 2016
 
 >_forking is a form of flattery_  
->-me
+>—me
