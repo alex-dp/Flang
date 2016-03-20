@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class WordInfo extends BaseActivity {
+public class WordInfo extends SharableActivity {
 
     public String ordinalNo(int value) {
         int hunRem = value % 100;
@@ -68,12 +67,6 @@ public class WordInfo extends BaseActivity {
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.share_menu, menu);
-        return true;
     }
 
     public void share(MenuItem item) {

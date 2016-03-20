@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TestResults extends BaseActivity {
+public class TestResults extends SharableActivity {
 
     ArrayList<String> from, to;
     boolean[] correct;
@@ -66,12 +65,6 @@ public class TestResults extends BaseActivity {
                 prefs.edit().putString("grades", grades).apply();
             }
         }).start();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.share_menu, menu);
-        return true;
     }
 
     public void share(MenuItem item) {

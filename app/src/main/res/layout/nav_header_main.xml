@@ -27,7 +27,6 @@
         android:layout_alignTop="@id/imageView"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/imageView"
-        android:layout_toRightOf="@id/imageView"
         android:orientation="vertical"
         android:paddingTop="@dimen/nav_header_vertical_spacing">
 

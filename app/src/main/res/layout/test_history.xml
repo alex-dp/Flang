@@ -3,59 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/header_history"
+    <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tabhost"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/list_row"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingStart="@dimen/twenty_four_dp"
-            android:text="@string/average"
-            android:textSize="18sp" />
+            android:layout_marginTop="48dp" />
 
-        <TextView
-            android:id="@+id/average"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:paddingEnd="@dimen/twenty_four_dp"
-            android:text="10"
-            android:textSize="24sp" />
-    </RelativeLayout>
+    </TabHost>
 
-    <LinearLayout
-        android:id="@+id/no_tests_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/notests"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no_tests_yet"
-            android:textAppearance="?android:textAppearanceMedium" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_take_a_test"
-            android:textAppearance="?android:textAppearanceSmall" />
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/test_history_list"
-        android:layout_below="@id/header_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </RelativeLayout>

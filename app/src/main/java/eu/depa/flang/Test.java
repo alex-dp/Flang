@@ -1,11 +1,8 @@
 package eu.depa.flang;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -75,10 +72,17 @@ public class Test extends BaseActivity implements View.OnClickListener {
                         for (int i = 0; i < n_questions; i++) {
                             views[i] = new ImageView(getBaseContext());
                             float width = (totWidth / n_questions) - singlePad;
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int) width, 12);
+                            final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int) width, 12);
                             layoutParams.setMarginStart(singlePad);
-                            views[i].setImageDrawable(getDrawableM(R.drawable.gray_rect));
-                            notches.addView(views[i], layoutParams);
+                            views[i].setImageDrawable(Constants.getDrawable(
+                                    getApplicationContext(), R.drawable.gray_rect));
+                            final int finalI = i;
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    notches.addView(views[finalI], layoutParams);
+                                }
+                            });
                         }
                     }
                 }).start();
@@ -98,7 +102,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
         for (int i = 0; i < n_choices; i++) {
             final TextView translation = new TextView(getBaseContext());
             translation.setPadding(16, 16, 16, 16);
-            translation.setBackground(getDrawableM(R.drawable.gray_rect));
+            translation.setBackground(Constants.getDrawable(this, R.drawable.gray_rect));
             translation.setTextColor(Color.rgb(0, 0, 0));
             translation.setTextSize(20);
             translation.setClickable(true);
@@ -176,7 +180,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
         });
 
         TB.startAnimation(toLeftAnim);
-        views[curr_pos].setImageDrawable(getDrawableM(
+        views[curr_pos].setImageDrawable(Constants.getDrawable(this,
                 (correct) ? R.drawable.green_rect : R.drawable.red_rect));
         correct_arr[curr_pos] = correct;
         curr_pos++;
@@ -193,13 +197,6 @@ public class Test extends BaseActivity implements View.OnClickListener {
     void setNewWordToGuess() {
         TextView original = (TextView) findViewById(R.id.word_to_guess);
         original.setText(words_from.get(curr_pos));
-    }
-
-    @SuppressLint("NewApi")
-    public Drawable getDrawableM(int id) {
-        //noinspection deprecation
-        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) ?
-                getDrawable(id) : getResources().getDrawable(id);
     }
 
     String translate(final String word, final String from, final String to) {

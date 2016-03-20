@@ -67,10 +67,6 @@ public class NotificationService extends Service {
             String from = Constants.langCodes[prefs.getInt("from", 0)];
             String to = Constants.langCodes[prefs.getInt("to", 1)];
 
-            if (prefs.getInt("learned", 0) >= Constants.words.length)
-                for (int i = 0; i < Constants.words.length; i++)
-                    editor.putBoolean("w" + String.valueOf(i), false).apply();
-
             int random;
             do
                 random = new Random().nextInt(Constants.words.length);
@@ -106,17 +102,19 @@ public class NotificationService extends Service {
             SharedPreferences.Editor editor = prefs.edit();
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.ic_short_text_gray_24dp)
+                            .setSmallIcon(R.drawable.ic_task)
                             .setContentTitle(translatedText)
                             .setContentText(chosen)
                             .setColor(Color.argb(0x00, 0xff, 0x3b, 0x3b))
-                            .setLights(Color.argb(0x00, 0xff, 0x3b, 0x3b), 3000, 3000);
+                            .setLights(Color.argb(0x00, 0xff, 0xff, 0xff), 500, 500);
             if (prefs.getBoolean("show_in_lockscreen", true))
                 builder.setPublicVersion(builder.build());
 
-            if(prefs.getInt("learned", 0) > Constants.words.length) {
+            if(prefs.getInt("learned", 0) >= Constants.words.length) {
                 builder = builder.setContentText("You learned them all!");
                 editor.putInt("learned", 0).apply();
+                for (int i = 0; i < Constants.words.length; i++)
+                    editor.putBoolean("w" + String.valueOf(i), false).apply();
             }
 
             int NOTIFICATION_ID = 12345;

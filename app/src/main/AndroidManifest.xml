@@ -31,6 +31,8 @@
         <activity android:name=".TestHistory" />
         <activity android:name=".ScreenSlidePagerActivity" />
         <activity android:name=".TestResults" />
+        <activity android:name=".THistoryByDate" />
+        <activity android:name=".THistoryChart" />
 
         <service android:name=".NotificationService"/>
     </application>

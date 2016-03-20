@@ -65,4 +65,6 @@
     <string name="my_average_test_score_in">My average test score in</string>
     <string name="is">is</string>
     <string name="average">Average</string>
+    <string name="chart">Chart</string>
+    <string name="by_date">By date</string>
 </resources>

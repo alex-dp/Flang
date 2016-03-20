@@ -7,14 +7,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Progress extends BaseActivity {
+public class Progress extends SharableActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,12 +44,6 @@ public class Progress extends BaseActivity {
         if (isNetworkAvailable()) startActivity(new Intent(Progress.this, Test.class));
         else
             Toast.makeText(Progress.this, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.share_menu, menu);
-        return true;
     }
 
     public void share(MenuItem item) {

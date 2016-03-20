@@ -60,4 +60,6 @@
     <string name="my_average_test_score_in">Il mio punteggio medio in </string>
     <string name="test_in_phrase"> </string>
     <string name="average">Media</string>
+    <string name="by_date">Per data</string>
+    <string name="chart">Grafico</string>
 </resources>
