@@ -45,11 +45,17 @@
             android:text="@string/no_tests_yet"
             android:textAppearance="?android:textAppearanceMedium" />
 
-        <TextView
+        <Button
+            android:id="@+id/test"
+            style="?android:buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/to_take_a_test"
-            android:textAppearance="?android:textAppearanceSmall" />
+            android:drawablePadding="@dimen/eightdp"
+            android:drawableStart="@drawable/ic_check"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:onClick="gotoTest"
+            android:text="@string/take_a_test"
+            android:visibility="visible" />
 
     </LinearLayout>
 

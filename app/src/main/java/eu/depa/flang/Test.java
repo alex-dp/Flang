@@ -228,6 +228,10 @@ public class Test extends BaseActivity implements View.OnClickListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        animateEditText((view.getText().toString().equalsIgnoreCase(words_to.get(curr_pos))));
+        try {
+            animateEditText((view.getText().toString().equalsIgnoreCase(words_to.get(curr_pos))));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

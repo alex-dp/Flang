@@ -1,5 +1,6 @@
 package eu.depa.flang;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,14 +23,18 @@ public class THistoryByDate extends AppCompatActivity {
         double sum = 0.0;
         DecimalFormat df = new DecimalFormat("#.##");
         for (String s : grades)
-            sum += Integer.parseInt(s);
+            try {
+                sum += Integer.parseInt(s);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         return String.valueOf(df.format(sum / grades.size()));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.t_history_data);
+        setContentView(R.layout.t_history_by_date);
 
         if (getSupportActionBar() != null) getSupportActionBar().hide();
 
@@ -38,7 +43,7 @@ public class THistoryByDate extends AppCompatActivity {
         grades = Arrays.asList(prefs.getString("grades", "").replaceFirst(";;", "").split(";;"));
         ListView list = (ListView) findViewById(R.id.test_history_list);
 
-        if (grades.isEmpty()) {
+        if (grades.isEmpty() || (grades.size() == 1 && grades.get(0).equals(""))) {
             LinearLayout g = (LinearLayout) findViewById(R.id.no_tests_group);
             g.setVisibility(View.VISIBLE);
         } else {
@@ -64,5 +69,15 @@ public class THistoryByDate extends AppCompatActivity {
         if (!s.equals(""))
             return Integer.parseInt(s) >= 6;
         return null;
+    }
+
+    public void gotoTest(View view) {
+        startActivity(new Intent(this, Test.class));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        onCreate(null);
     }
 }

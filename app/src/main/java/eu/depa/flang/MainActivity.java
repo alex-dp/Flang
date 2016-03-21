@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
         toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -115,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
