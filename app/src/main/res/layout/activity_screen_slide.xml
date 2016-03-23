@@ -54,5 +54,5 @@
         android:background="#00000000"
         android:contentDescription="@string/foo"
         android:onClick="next"
-        android:tint="@color/white" />
+        android:tint="@color/darkGray" />
 </RelativeLayout>

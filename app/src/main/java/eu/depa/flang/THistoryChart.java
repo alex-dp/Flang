@@ -1,12 +1,18 @@
 package eu.depa.flang;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -22,7 +28,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
-public class THistoryChart extends AppCompatActivity implements OnDataPointTapListener {
+public class THistoryChart extends android.support.v4.app.Fragment implements OnDataPointTapListener, View.OnClickListener {
 
     public static String average(List<String> grades) {
         double sum = 0.0;
@@ -32,14 +38,17 @@ public class THistoryChart extends AppCompatActivity implements OnDataPointTapLi
         return String.valueOf(df.format(sum / grades.size()));
     }
 
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.t_history_chart);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.t_history_chart, container, false);
+    }
 
-        if (getSupportActionBar() != null) getSupportActionBar().hide();
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         List<String> grades = Arrays.asList(prefs.getString("grades", "").replaceFirst(";;", "").split(";;"));
 
         try {
@@ -47,11 +56,16 @@ public class THistoryChart extends AppCompatActivity implements OnDataPointTapLi
         } catch (Exception e) {
             e.printStackTrace();
         }
-        final GraphView graph = (GraphView) findViewById(R.id.graph);
+        final GraphView graph = (GraphView) getActivity().findViewById(R.id.graph);
+        Button test = (Button) getView().findViewById(R.id.test_hc);
+        test.setOnClickListener(this);
 
         if (grades.isEmpty() || (grades.size() == 1 && grades.get(0).equals(""))) {
-            LinearLayout g = (LinearLayout) findViewById(R.id.no_tests_group);
+            LinearLayout g = (LinearLayout) getView().findViewById(R.id.no_tests_group);
             g.setVisibility(View.VISIBLE);
+
+            if (!isNetworkAvailable() || prefs.getInt("learned", 0) < 3)
+                test.setVisibility(View.GONE);
             graph.setVisibility(View.GONE);
         } else {
             DataPoint[] data = new DataPoint[grades.size()];
@@ -80,9 +94,9 @@ public class THistoryChart extends AppCompatActivity implements OnDataPointTapLi
 
     @Override
     public void onTap(Series series, DataPointInterface dataPointInterface) {
-        RelativeLayout mom = (RelativeLayout) findViewById(R.id.chart_mom);
+        RelativeLayout mom = (RelativeLayout) getView().findViewById(R.id.chart_mom);
         Toast toast = Toast.makeText(
-                THistoryChart.this,
+                getContext(),
                 String.valueOf(dataPointInterface.getY()),
                 Toast.LENGTH_SHORT);
         double Y = dataPointInterface.getY();
@@ -90,13 +104,21 @@ public class THistoryChart extends AppCompatActivity implements OnDataPointTapLi
         toast.show();
     }
 
-    public void gotoTest(View view) {
-        startActivity(new Intent(this, Test.class));
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        onCreate(null);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        onCreate(null);
+    public void onClick(View v) {
+        startActivity(new Intent(getContext(), Test.class));
     }
 }

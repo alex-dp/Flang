@@ -27,7 +27,7 @@ public class Progress extends SharableActivity {
 
         count.setText(String.valueOf(prefs.getInt("learned", 0)));
 
-        if (!isNetworkAvailable()) {
+        if (!isNetworkAvailable() || prefs.getInt("learned", 0) < 3) {
             Button test = (Button) findViewById(R.id.test);
             test.setVisibility(View.GONE);
         }

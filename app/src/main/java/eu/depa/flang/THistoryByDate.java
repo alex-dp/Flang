@@ -1,11 +1,17 @@
 package eu.depa.flang;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -15,7 +21,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
-public class THistoryByDate extends AppCompatActivity {
+public class THistoryByDate extends android.support.v4.app.Fragment implements View.OnClickListener {
 
     static List<String> grades, dates;
 
@@ -31,24 +37,33 @@ public class THistoryByDate extends AppCompatActivity {
         return String.valueOf(df.format(sum / grades.size()));
     }
 
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.t_history_by_date);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.t_history_by_date, container, false);
+    }
 
-        if (getSupportActionBar() != null) getSupportActionBar().hide();
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         dates = Arrays.asList(prefs.getString("dates", "").replaceFirst(";;", "").split(";;"));
         grades = Arrays.asList(prefs.getString("grades", "").replaceFirst(";;", "").split(";;"));
-        ListView list = (ListView) findViewById(R.id.test_history_list);
+        ListView list = (ListView) getView().findViewById(R.id.test_history_list);
+
+        Button test = (Button) getView().findViewById(R.id.test_hbd);
+        test.setOnClickListener(this);
 
         if (grades.isEmpty() || (grades.size() == 1 && grades.get(0).equals(""))) {
-            LinearLayout g = (LinearLayout) findViewById(R.id.no_tests_group);
+            LinearLayout g = (LinearLayout) getView().findViewById(R.id.no_tests_group);
             g.setVisibility(View.VISIBLE);
+
+            if (!isNetworkAvailable() || prefs.getInt("learned", 0) < 3)
+                test.setVisibility(View.GONE);
         } else {
 
-            RelativeLayout a = (RelativeLayout) findViewById(R.id.header_history);
+            RelativeLayout a = (RelativeLayout) getView().findViewById(R.id.header_history);
             a.setVisibility(View.VISIBLE);
             ResultLine[] data = new ResultLine[dates.size()];
 
@@ -57,10 +72,10 @@ public class THistoryByDate extends AppCompatActivity {
                         grades.get(i),
                         goodOrBad(grades.get(i)));
 
-            ResultListAdapter adapter = new ResultListAdapter(this, R.layout.results_list_row, data);
+            ResultListAdapter adapter = new ResultListAdapter(getContext(), R.layout.results_list_row, data);
             list.setAdapter(adapter);
 
-            TextView avg = (TextView) findViewById(R.id.average);
+            TextView avg = (TextView) getView().findViewById(R.id.average);
             avg.setText(average());
         }
     }
@@ -71,13 +86,21 @@ public class THistoryByDate extends AppCompatActivity {
         return null;
     }
 
-    public void gotoTest(View view) {
-        startActivity(new Intent(this, Test.class));
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        onCreate(null);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        onCreate(null);
+    public void onClick(View v) {
+        startActivity(new Intent(getContext(), Test.class));
     }
 }

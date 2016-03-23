@@ -3,6 +3,7 @@
     android:id="@+id/chart_mom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/eighteen_dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -22,7 +23,7 @@
             android:textAppearance="?android:textAppearanceMedium" />
 
         <Button
-            android:id="@+id/test"
+            android:id="@+id/test_hc"
             style="?android:buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +38,6 @@
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/eighteen_dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

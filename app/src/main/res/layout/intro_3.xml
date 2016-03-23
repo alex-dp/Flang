@@ -19,8 +19,7 @@
         android:layout_marginTop="64dp"
         android:contentDescription="@string/foo"
         android:rotation="30"
-        android:src="@drawable/test"
-        android:tint="@color/white" />
+        android:src="@drawable/test" />
 
     <TextView
         android:id="@+id/third_slide_text"
@@ -32,6 +31,6 @@
         android:paddingTop="@dimen/twenty_four_dp"
         android:text="@string/third_slide"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textColor="@color/white" />
+        android:textColor="@color/darkGray" />
 
 </RelativeLayout>

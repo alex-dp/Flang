@@ -46,14 +46,13 @@
             android:textAppearance="?android:textAppearanceMedium" />
 
         <Button
-            android:id="@+id/test"
+            android:id="@+id/test_hbd"
             style="?android:buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/eightdp"
             android:drawableStart="@drawable/ic_check"
             android:drawableTint="@color/colorPrimaryDark"
-            android:onClick="gotoTest"
             android:text="@string/take_a_test"
             android:visibility="visible" />
 

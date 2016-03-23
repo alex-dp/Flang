@@ -107,7 +107,11 @@ public class Test extends BaseActivity implements View.OnClickListener {
             translation.setTextSize(20);
             translation.setClickable(true);
             if (i == n_rand)
-                translation.setText(words_to.get(curr_pos));
+                try {
+                    translation.setText(words_to.get(curr_pos));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             else {
                 new Thread(new Runnable() {
                     @Override
@@ -196,7 +200,11 @@ public class Test extends BaseActivity implements View.OnClickListener {
 
     void setNewWordToGuess() {
         TextView original = (TextView) findViewById(R.id.word_to_guess);
-        original.setText(words_from.get(curr_pos));
+        try {
+            original.setText(words_from.get(curr_pos));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     String translate(final String word, final String from, final String to) {
@@ -222,13 +230,9 @@ public class Test extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        TextView view = new TextView(getBaseContext());
+        TextView view;
         try {
             view = (TextView) v;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
             animateEditText((view.getText().toString().equalsIgnoreCase(words_to.get(curr_pos))));
         } catch (Exception e) {
             e.printStackTrace();

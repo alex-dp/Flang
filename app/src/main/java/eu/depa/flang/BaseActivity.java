@@ -27,8 +27,9 @@ public class BaseActivity extends AppCompatActivity {
                     getColorM(R.color.colorPrimary)));
         }
 
-        if (getSupportActionBar() != null)
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         lockOrientation();
     }
 

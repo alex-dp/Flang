@@ -20,8 +20,7 @@
         android:layout_marginTop="64dp"
         android:contentDescription="@string/foo"
         android:rotation="-30"
-        android:src="@drawable/bulb"
-        android:tint="@color/white" />
+        android:src="@drawable/bell" />
 
     <TextView
         android:id="@+id/second_slide_text"
@@ -33,6 +32,6 @@
         android:paddingTop="@dimen/activity_horizontal_margin"
         android:text="@string/second_slide"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textColor="@color/white" />
+        android:textColor="@color/darkGray" />
 
 </RelativeLayout>

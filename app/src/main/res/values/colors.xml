@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#d84315</color>  <!--800-->
     <color name="halfTransparentWhite">#80FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_background">#FFEEEEEE</color>
     <color name="lightGray">#FFC0C0C0</color>
     <color name="gray">#FF808080</color>
     <color name="darkGray">#FF404040</color>

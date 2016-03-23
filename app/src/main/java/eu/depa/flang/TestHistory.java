@@ -1,20 +1,20 @@
 package eu.depa.flang;
 
-import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.widget.TabHost;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class TestHistory extends SharableActivity {
-
-    LocalActivityManager LAM;
 
     public static String average(List<String> pGrades) {
         double sum = 0.0;
@@ -30,35 +30,20 @@ public class TestHistory extends SharableActivity {
         setContentView(R.layout.test_history);
         setTitle(R.string.test_history);
 
-        LAM = new LocalActivityManager(this, false);
-        LAM.dispatchCreate(savedInstanceState);
-        TabHost tabHost = (TabHost) findViewById(R.id.tabhost);
-        tabHost.setup(LAM);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-        TabHost.TabSpec spec1 = tabHost.newTabSpec("");
-        spec1.setIndicator(getString(R.string.by_date), Constants.getDrawable(this, R.drawable.ic_menu_settings));
-        Intent in1 = new Intent(this, THistoryByDate.class);
-        spec1.setContent(in1);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
-        TabHost.TabSpec spec2 = tabHost.newTabSpec("");
-        spec2.setIndicator(getString(R.string.chart), Constants.getDrawable(this, R.drawable.ic_menu_progress));
-        Intent in2 = new Intent(this, THistoryChart.class);
-        spec2.setContent(in2);
-
-        tabHost.addTab(spec1);
-        tabHost.addTab(spec2);
+        if (getSupportActionBar() != null) getSupportActionBar().setElevation(0);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LAM.dispatchResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LAM.dispatchPause(isFinishing());
+    private void setupViewPager(ViewPager viewPager) {
+        THAdapter adapter = new THAdapter(getSupportFragmentManager());
+        adapter.addFragment(new THistoryByDate(), getString(R.string.by_date));
+        adapter.addFragment(new THistoryChart(), getString(R.string.chart));
+        viewPager.setAdapter(adapter);
     }
 
     public void share(MenuItem item) {
@@ -71,5 +56,34 @@ public class TestHistory extends SharableActivity {
                 average(grades) + "!");
         share.setType("text/plain");
         startActivity(Intent.createChooser(share, getString(R.string.chooser)));
+    }
+
+    class THAdapter extends FragmentPagerAdapter {
+        private final List<android.support.v4.app.Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public THAdapter(android.support.v4.app.FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(android.support.v4.app.Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 }
