@@ -32,7 +32,7 @@ import eu.depa.flang.adapters.CustomArrayAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    static Context context;
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +63,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -114,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             continueOnCreate();
     }
 
-    public void continueOnCreate() {
+    private void continueOnCreate() {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

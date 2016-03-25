@@ -27,18 +27,18 @@ import eu.depa.flang.R;
 
 public class Test extends BaseActivity implements View.OnClickListener {
 
-    public static String translation = "default";
-    static Context context;
-    int curr_pos = 0,
+    private static String translation = "default";
+    private static Context context;
+    private final List<String> words_from = new ArrayList<>(),
+            words_to = new ArrayList<>();
+    private int curr_pos = 0,
             singlePad = 5,
             n_questions = 10,
             n_choices = 4,
             totWidth;
-    ImageView[] views = new ImageView[n_questions];
-    String from, to;
-    List<String> words_from = new ArrayList<>(),
-            words_to = new ArrayList<>();
-    boolean[] correct_arr = new boolean[n_questions];
+    private String from, to;
+    private final ImageView[] views = new ImageView[n_questions];
+    private final boolean[] correct_arr = new boolean[n_questions];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
         populateViews();
     }
 
-    private boolean populateViews() {
+    private void populateViews() {
         final FlowLayout trans_mom = new FlowLayout(getBaseContext());
         final LinearLayout mom = (LinearLayout) findViewById(R.id.test_mom);
         final Animation
@@ -164,10 +164,9 @@ public class Test extends BaseActivity implements View.OnClickListener {
         if (curr_pos != 0) {
             mom.getChildAt(mom.getChildCount() - 1).startAnimation(toLeft);
         } else mom.addView(trans_mom);
-        return true;
     }
 
-    public void animateEditText(boolean correct) {
+    private void animateEditText(boolean correct) {
 
         final Animation
                 toLeftAnim = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_to_left),
@@ -183,8 +182,8 @@ public class Test extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (populateViews())    //set new word to guess and words to pick from
-                    TB.startAnimation(fadeIn);
+                populateViews();    //set new word to guess and words to pick from
+                TB.startAnimation(fadeIn);
             }
 
             @Override
@@ -208,7 +207,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    void setNewWordToGuess() {
+    private void setNewWordToGuess() {
         TextView original = (TextView) findViewById(R.id.word_to_guess);
         try {
             original.setText(words_from.get(curr_pos));
@@ -217,7 +216,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    String translate(final String word, final String from, final String to) {
+    private String translate(final String word, final String from, final String to) {
 
         Translate.setKey(Constants.key);
         Thread translate = new Thread(new Runnable() {

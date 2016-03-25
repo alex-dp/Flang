@@ -22,7 +22,7 @@ import eu.depa.flang.ui.fragments.THistoryChart;
 
 public class TestHistory extends SharableActivity implements MenuItem.OnMenuItemClickListener {
 
-    public static String average(List<String> pGrades) {
+    private static String average(List<String> pGrades) {
         double sum = 0.0;
         DecimalFormat df = new DecimalFormat("#.##");
         for (String s : pGrades)
@@ -47,7 +47,8 @@ public class TestHistory extends SharableActivity implements MenuItem.OnMenuItem
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 0, 1, R.string.take_a_test)
+        if (Constants.isNetworkAvailable(this))
+            menu.add(0, 0, 1, R.string.take_a_test)
                 .setOnMenuItemClickListener(this)
                 .setIcon(R.drawable.ic_check_white)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);

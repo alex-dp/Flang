@@ -25,7 +25,6 @@
             android:layout_alignParentEnd="true"
             android:gravity="center"
             android:paddingEnd="@dimen/twenty_four_dp"
-            android:text="10"
             android:textSize="24sp" />
     </RelativeLayout>
 

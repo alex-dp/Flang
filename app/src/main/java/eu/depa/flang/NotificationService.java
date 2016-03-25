@@ -55,8 +55,8 @@ public class NotificationService extends Service {
 
     class PollTask extends AsyncTask<Void, Void, Void> {
 
+        final public Context context;
         public String translatedText, chosen;
-        public Context context;
 
         public PollTask(Context pContext) {
             context = pContext;

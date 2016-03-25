@@ -46,7 +46,9 @@ public class Settings extends BaseActivity {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            ListView lv = (ListView) getView().findViewById(android.R.id.list);
+            ListView lv = null;
+            if (getView() != null)
+                lv = (ListView) getView().findViewById(android.R.id.list);
             if (lv != null) lv.setPadding(0, 0, 0, 0);
         }
     }

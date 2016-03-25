@@ -19,8 +19,7 @@ import eu.depa.flang.adapters.ResultListAdapter;
 
 public class TestResults extends SharableActivity {
 
-    ArrayList<String> from, to;
-    boolean[] correct;
+    private boolean[] correct;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,8 +27,8 @@ public class TestResults extends SharableActivity {
         setContentView(R.layout.test_results);
         setTitle(R.string.test_results);
 
-        from = getIntent().getStringArrayListExtra("from");
-        to = getIntent().getStringArrayListExtra("to");
+        ArrayList<String> from = getIntent().getStringArrayListExtra("from");
+        ArrayList<String> to = getIntent().getStringArrayListExtra("to");
         correct = getIntent().getBooleanArrayExtra("correct");
         ListView list = (ListView) findViewById(R.id.result_list);
 
@@ -75,11 +74,12 @@ public class TestResults extends SharableActivity {
     public void share(MenuItem item) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Intent share = new Intent(Intent.ACTION_SEND);
+        String opt = getString(R.string.test_in_phrase);
         share.putExtra(Intent.EXTRA_TEXT, getString(R.string.i_scored) + " " +
             sum(correct) + " " +
             getString(R.string.in_a) + " " +
-            Constants.getLangsArr()[prefs.getInt("to", 1)] +
-            getString(R.string.test_in_phrase) + "!");
+                Constants.getLangsArr()[prefs.getInt("to", 1)] + (opt.equals("") ? "" : " ") +
+                opt + "!");
         share.setType("text/plain");
         startActivity(Intent.createChooser(share, getString(R.string.chooser)));
     }

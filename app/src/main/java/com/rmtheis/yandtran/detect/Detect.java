@@ -15,13 +15,13 @@
  */
 package com.rmtheis.yandtran.detect;
 
-import java.net.URL;
-import java.net.URLEncoder;
-
 import com.rmtheis.yandtran.ApiKeys;
 import com.rmtheis.yandtran.YandexTranslatorAPI;
 import com.rmtheis.yandtran.language.Language;
 import com.rmtheis.yandtran.translate.Translate;
+
+import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Provides an interface to the Yandex Translator Detect service method
@@ -31,7 +31,8 @@ public final class Detect extends YandexTranslatorAPI {
     private static final String DETECTION_LABEL = "lang";
     
     // prevent instantiation
-    private Detect(){};
+    private Detect() {
+    }
 
     /**
 	  * Detects the language of a supplied String.

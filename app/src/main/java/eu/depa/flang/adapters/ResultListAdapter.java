@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import eu.depa.flang.Constants;
 import eu.depa.flang.R;
 import eu.depa.flang.ResultLine;
 
 public class ResultListAdapter extends ArrayAdapter<ResultLine> {
 
-    Context context;
-    int layoutResourceId;
-    ResultLine data[] = null;
+    final private Context context;
+    final private int layoutResourceId;
+    private ResultLine data[] = null;
 
     public ResultListAdapter(Context context, int layoutResourceId, ResultLine[] data) {
         super(context, layoutResourceId, data);
@@ -47,9 +48,9 @@ public class ResultListAdapter extends ArrayAdapter<ResultLine> {
         holder.to.setText(line.to);
 
         if (line.correct != null) {
-            holder.from.setTextColor(context.getResources().getColor(
+            holder.from.setTextColor(Constants.getColor(context,
                     (line.correct) ? R.color.green : R.color.red));
-            holder.to.setTextColor(context.getResources().getColor(
+            holder.to.setTextColor(Constants.getColor(context,
                     (line.correct) ? R.color.green : R.color.red));
         }
         return row;

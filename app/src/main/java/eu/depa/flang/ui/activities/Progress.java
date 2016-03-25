@@ -1,10 +1,7 @@
 package eu.depa.flang.ui.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -32,7 +29,7 @@ public class Progress extends SharableActivity {
 
         count.setText(String.valueOf(learnt));
 
-        if (!isNetworkAvailable() || prefs.getInt("learned", 0) < 3) {
+        if (!Constants.isNetworkAvailable(this) || prefs.getInt("learned", 0) < 3) {
             Button test = (Button) findViewById(R.id.test);
             test.setVisibility(View.GONE);
         }
@@ -41,15 +38,9 @@ public class Progress extends SharableActivity {
             word.setText(R.string.word);
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
     public void gotoTest(View view) {
-        if (isNetworkAvailable()) startActivity(new Intent(Progress.this, Test.class));
+        if (Constants.isNetworkAvailable(this))
+            startActivity(new Intent(Progress.this, Test.class));
         else
             Toast.makeText(Progress.this, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
     }

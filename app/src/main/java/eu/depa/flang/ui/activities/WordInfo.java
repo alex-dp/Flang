@@ -14,7 +14,7 @@ import eu.depa.flang.R;
 
 public class WordInfo extends SharableActivity {
 
-    public String ordinalNo(int value) {
+    private String ordinalNo(int value) {
         int hunRem = value % 100;
         int tenRem = value % 10;
         if (hunRem - tenRem == 10) {
@@ -58,11 +58,11 @@ public class WordInfo extends SharableActivity {
         count.setText(learnedText);
     }
 
-    public String getOriginal() {
+    private String getOriginal() {
         return getIntent().getStringExtra("original");
     }
 
-    public String getTrans() {
+    private String getTrans() {
         return getIntent().getStringExtra("translated");
     }
 
