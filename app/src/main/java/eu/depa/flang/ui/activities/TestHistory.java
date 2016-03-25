@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import java.text.DecimalFormat;
@@ -14,7 +15,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestHistory extends SharableActivity {
+import eu.depa.flang.Constants;
+import eu.depa.flang.R;
+import eu.depa.flang.ui.fragments.THistoryByDate;
+import eu.depa.flang.ui.fragments.THistoryChart;
+
+public class TestHistory extends SharableActivity implements MenuItem.OnMenuItemClickListener {
 
     public static String average(List<String> pGrades) {
         double sum = 0.0;
@@ -37,6 +43,23 @@ public class TestHistory extends SharableActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         if (getSupportActionBar() != null) getSupportActionBar().setElevation(0);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 0, 1, R.string.take_a_test)
+                .setOnMenuItemClickListener(this)
+                .setIcon(R.drawable.ic_check_white)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        getMenuInflater().inflate(R.menu.share_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == 0)
+            startActivity(new Intent(getBaseContext(), Test.class));
+        return true;
     }
 
     private void setupViewPager(ViewPager viewPager) {

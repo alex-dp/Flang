@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -24,6 +24,12 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import eu.depa.flang.BuildConfig;
+import eu.depa.flang.Constants;
+import eu.depa.flang.NotificationService;
+import eu.depa.flang.R;
+import eu.depa.flang.adapters.CustomArrayAdapter;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static Context context;
@@ -35,65 +41,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         context = getApplicationContext();
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if (prefs.getBoolean("first", true))
-            startActivity(new Intent(this, ScreenSlidePagerActivity.class));
-        prefs.edit().putBoolean("first", false).apply();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            BitmapDrawable bmpd = ((BitmapDrawable) getDrawable(R.drawable.ic_task));
-            Bitmap bmp = null;
-            if (bmpd != null)
-                bmp = bmpd.getBitmap();
-            //noinspection deprecation
-            setTaskDescription(new ActivityManager.TaskDescription(null,
-                    bmp,
-                    getResources().getColor(R.color.colorPrimary)));
+        if (prefs.getBoolean("first", true)) {
+            startActivityForResult(new Intent(this, ScreenSlidePagerActivity.class), 5682);
+            prefs.edit().putBoolean("first", false).apply();
+            return;
         }
 
-        Spinner fromSpinner = (Spinner) findViewById(R.id.from);
-        Spinner toSpinner = (Spinner) findViewById(R.id.to);
-
-        SpinnerAdapter langAdapter = new CustomArrayAdapter<>(
-                context,
-                Constants.getLangsArr());
-
-        fromSpinner.setAdapter(langAdapter);
-        toSpinner.setAdapter(langAdapter);
-
-        fromSpinner.setSelection(prefs.getInt("from", 0));
-        toSpinner.setSelection(prefs.getInt("to", 1));
-
-        fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                prefs.edit().putInt("from", (int) id).apply();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
-        toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                prefs.edit().putInt("to", (int) id).apply();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
+        continueOnCreate();
     }
 
     @Override
@@ -151,6 +105,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == resultCode)
+            continueOnCreate();
+    }
+
+    public void continueOnCreate() {
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            BitmapDrawable bmpd = ((BitmapDrawable) getDrawable(R.drawable.ic_task));
+            Bitmap bmp = null;
+            if (bmpd != null)
+                bmp = bmpd.getBitmap();
+            //noinspection deprecation
+            setTaskDescription(new ActivityManager.TaskDescription(null,
+                    bmp,
+                    getResources().getColor(R.color.colorPrimary)));
+        }
+
+        Spinner fromSpinner = (Spinner) findViewById(R.id.from);
+        Spinner toSpinner = (Spinner) findViewById(R.id.to);
+
+        SpinnerAdapter langAdapter = new CustomArrayAdapter<>(
+                context,
+                Constants.getLangsArr());
+
+        fromSpinner.setAdapter(langAdapter);
+        toSpinner.setAdapter(langAdapter);
+
+        fromSpinner.setSelection(prefs.getInt("from", 0));
+        toSpinner.setSelection(prefs.getInt("to", 1));
+
+        fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                prefs.edit().putInt("from", (int) id).apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                prefs.edit().putInt("to", (int) id).apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     public void getNot(View view) {

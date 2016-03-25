@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        android:elevation="2dp"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/colorAccentLight"
         app:tabMode="fixed"
@@ -20,6 +21,5 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/eightdp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </LinearLayout>

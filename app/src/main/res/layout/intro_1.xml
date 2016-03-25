@@ -19,6 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
         android:contentDescription="@string/foo"
+        android:elevation="@dimen/sixdp"
         android:src="@drawable/books" />
 
     <TextView

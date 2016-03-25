@@ -1,10 +1,12 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import eu.depa.flang.R;
 
 public class ScreenSlidePageFragment extends Fragment {
 

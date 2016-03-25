@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +27,9 @@ import com.jjoe64.graphview.series.Series;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
+
+import eu.depa.flang.R;
+import eu.depa.flang.ui.activities.Test;
 
 public class THistoryChart extends android.support.v4.app.Fragment implements OnDataPointTapListener, View.OnClickListener {
 

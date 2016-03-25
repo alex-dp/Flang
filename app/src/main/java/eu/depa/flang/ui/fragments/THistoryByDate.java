@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,11 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
+
+import eu.depa.flang.R;
+import eu.depa.flang.ResultLine;
+import eu.depa.flang.adapters.ResultListAdapter;
+import eu.depa.flang.ui.activities.Test;
 
 public class THistoryByDate extends android.support.v4.app.Fragment implements View.OnClickListener {
 

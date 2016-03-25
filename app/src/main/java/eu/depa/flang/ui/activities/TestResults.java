@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,11 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import eu.depa.flang.Constants;
+import eu.depa.flang.R;
+import eu.depa.flang.ResultLine;
+import eu.depa.flang.adapters.ResultListAdapter;
 
 public class TestResults extends SharableActivity {
 

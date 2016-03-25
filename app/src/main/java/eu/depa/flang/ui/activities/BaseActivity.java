@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import eu.depa.flang.R;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -27,9 +29,8 @@ public class BaseActivity extends AppCompatActivity {
                     getColorM(R.color.colorPrimary)));
         }
 
-        if (getSupportActionBar() != null) {
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         lockOrientation();
     }
 

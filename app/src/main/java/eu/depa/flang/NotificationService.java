@@ -19,6 +19,8 @@ import com.rmtheis.yandtran.translate.Translate;
 
 import java.util.Random;
 
+import eu.depa.flang.ui.activities.WordInfo;
+
 public class NotificationService extends Service {
 
     private PowerManager.WakeLock mWakeLock;

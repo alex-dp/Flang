@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import eu.depa.flang.Constants;
+import eu.depa.flang.R;
 
 public class WordInfo extends SharableActivity {
 
@@ -50,8 +53,8 @@ public class WordInfo extends SharableActivity {
                 translated = (TextView) findViewById(R.id.translated),
                 count = (TextView) findViewById(R.id.words_learnt);
 
-        original.setText(getIntent().getStringExtra("original"));
-        translated.setText(getIntent().getStringExtra("translated"));
+        original.setText(getOriginal());
+        translated.setText(getTrans());
         count.setText(learnedText);
     }
 
@@ -65,7 +68,9 @@ public class WordInfo extends SharableActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
         finish();
     }
 

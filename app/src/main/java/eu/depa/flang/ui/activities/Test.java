@@ -1,5 +1,6 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -20,9 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import eu.depa.flang.Constants;
+import eu.depa.flang.FlowLayout;
+import eu.depa.flang.R;
+
 public class Test extends BaseActivity implements View.OnClickListener {
 
     public static String translation = "default";
+    static Context context;
     int curr_pos = 0,
             singlePad = 5,
             n_questions = 10,
@@ -39,6 +45,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
         setTitle(R.string.take_a_test);
+        context = this;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         from = Constants.langCodes[prefs.getInt("from", 0)];
@@ -96,45 +103,48 @@ public class Test extends BaseActivity implements View.OnClickListener {
     private boolean populateViews() {
         final FlowLayout trans_mom = new FlowLayout(getBaseContext());
         final LinearLayout mom = (LinearLayout) findViewById(R.id.test_mom);
+        final Animation
+                fadeIn = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in),
+                toLeft = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_to_left);
         setNewWordToGuess();
 
-        int n_rand = new Random().nextInt(n_choices);
-        for (int i = 0; i < n_choices; i++) {
-            final TextView translation = new TextView(getBaseContext());
-            translation.setPadding(16, 16, 16, 16);
-            translation.setBackground(Constants.getDrawable(this, R.drawable.gray_rect));
-            translation.setTextColor(Color.rgb(0, 0, 0));
-            translation.setTextSize(20);
-            translation.setClickable(true);
-            if (i == n_rand)
-                try {
-                    translation.setText(words_to.get(curr_pos));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            else {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int n_rand = new Random().nextInt(n_choices);
+                for (int i = 0; i < n_choices; i++) {
+                    final TextView translation = new TextView(getBaseContext());
+                    translation.setPadding(16, 16, 16, 16);
+                    translation.setBackground(Constants.getDrawable(getApplicationContext(), R.drawable.gray_rect));
+                    translation.setTextColor(Color.rgb(0, 0, 0));
+                    translation.setTextSize(20);
+                    translation.setClickable(true);
+                    if (i == n_rand)
+                        try {
+                            translation.setText(words_to.get(curr_pos));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    else {
                         Random m_rand = new Random(new Random().nextInt());
                         int pos = m_rand.nextInt(Constants.words.length);
                         String temp = translate(Constants.words[pos], "en", from);
                         final String fin = translate(temp, from, to);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                translation.setText(fin);
-                            }
-                        });
+                        translation.setText(fin);
                     }
-                }).start();
+                    translation.setOnClickListener((Test) context);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            trans_mom.addView(translation);
+                        }
+                    });
+                }
+
+
             }
-            translation.setOnClickListener(this);
-            trans_mom.addView(translation);
-        }
-        final Animation
-                fadeIn = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in),
-                toLeft = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_to_left);
+        }).start();
+
         toLeft.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

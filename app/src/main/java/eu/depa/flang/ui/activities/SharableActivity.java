@@ -1,7 +1,9 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import eu.depa.flang.R;
 
 public class SharableActivity extends BaseActivity {
 

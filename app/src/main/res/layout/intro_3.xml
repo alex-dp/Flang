@@ -18,6 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="64dp"
         android:contentDescription="@string/foo"
+        android:elevation="@dimen/sixdp"
         android:rotation="30"
         android:src="@drawable/test" />
 
@@ -25,8 +26,7 @@
         android:id="@+id/third_slide_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/third_slide_image"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/third_slide_image"
         android:gravity="center"
         android:paddingTop="@dimen/twenty_four_dp"
         android:text="@string/third_slide"

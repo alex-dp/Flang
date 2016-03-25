@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import eu.depa.flang.Constants;
+import eu.depa.flang.R;
+
 public class Progress extends SharableActivity {
 
     @Override
@@ -23,14 +26,19 @@ public class Progress extends SharableActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        TextView count = (TextView) findViewById(R.id.count);
+        TextView count = (TextView) findViewById(R.id.count),
+                word = (TextView) findViewById(R.id.word_or_words);
+        int learnt = prefs.getInt("learned", 0);
 
-        count.setText(String.valueOf(prefs.getInt("learned", 0)));
+        count.setText(String.valueOf(learnt));
 
         if (!isNetworkAvailable() || prefs.getInt("learned", 0) < 3) {
             Button test = (Button) findViewById(R.id.test);
             test.setVisibility(View.GONE);
         }
+
+        if (learnt == 1)
+            word.setText(R.string.word);
     }
 
     private boolean isNetworkAvailable() {

@@ -1,9 +1,13 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import eu.depa.flang.Constants;
+import eu.depa.flang.R;
 
 public class Settings extends BaseActivity {
     @Override
@@ -34,6 +38,7 @@ public class Settings extends BaseActivity {
             switch (preference.getKey()) {
                 case "interval":
                     Constants.resetAlarm(getActivity().getApplicationContext());
+                    Toast.makeText(getActivity(), "I worked. sort of.", Toast.LENGTH_SHORT).show();
             }
             return true;
         }

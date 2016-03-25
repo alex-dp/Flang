@@ -1,4 +1,4 @@
-package eu.depa.flang;
+package eu.depa.flang.ui.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,6 +14,9 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import eu.depa.flang.R;
+import eu.depa.flang.ui.fragments.ScreenSlidePageFragment;
 
 public class ScreenSlidePagerActivity extends FragmentActivity {
 
@@ -100,6 +103,12 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             mPager.setCurrentItem(mPager.getCurrentItem() + 1);
         else
             finish();
+    }
+
+    @Override
+    public void finish() {
+        setResult(5682);
+        super.finish();
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
