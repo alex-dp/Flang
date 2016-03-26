@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         SpinnerAdapter langAdapter = new CustomArrayAdapter<>(
                 context,
-                Constants.getLangsArr());
+                Constants.getLangsArr(this));
 
         fromSpinner.setAdapter(langAdapter);
         toSpinner.setAdapter(langAdapter);

@@ -84,7 +84,7 @@ public class WordInfo extends SharableActivity {
                         getString(R.string.means) + " " +
                         getOriginal() + " " +
                         getString(R.string.in) + " " +
-                        Constants.getLangsArr()[prefs.getInt("to", 1)]);
+                        Constants.getLangsArr(this)[prefs.getInt("to", 1)]);
         share.setType("text/plain");
         startActivity(Intent.createChooser(share, getString(R.string.chooser)));
     }

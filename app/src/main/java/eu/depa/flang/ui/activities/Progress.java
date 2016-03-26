@@ -51,7 +51,7 @@ public class Progress extends SharableActivity {
         share.putExtra(Intent.EXTRA_TEXT, getString(R.string.i_learned) + " " +
                 String.valueOf(prefs.getInt("learned", 0)) + " " +
                 getString(R.string.words_in) + " " +
-                Constants.getLangsArr()[prefs.getInt("to", 0)]);
+                Constants.getLangsArr(this)[prefs.getInt("to", 0)]);
         share.setType("text/plain");
         startActivity(Intent.createChooser(share, getString(R.string.chooser)));
     }

@@ -78,7 +78,7 @@ public class TestResults extends SharableActivity {
         share.putExtra(Intent.EXTRA_TEXT, getString(R.string.i_scored) + " " +
             sum(correct) + " " +
             getString(R.string.in_a) + " " +
-                Constants.getLangsArr()[prefs.getInt("to", 1)] + (opt.equals("") ? "" : " ") +
+                Constants.getLangsArr(this)[prefs.getInt("to", 1)] + (opt.equals("") ? "" : " ") +
                 opt + "!");
         share.setType("text/plain");
         startActivity(Intent.createChooser(share, getString(R.string.chooser)));

@@ -54,4 +54,6 @@
     <string name="average">Media</string>
     <string name="by_date">Per data</string>
     <string name="chart">Grafico</string>
+    <string name="stop_clicking">Smettila di toccarmi</string>
+    <string name="version">Versione</string>
 </resources>

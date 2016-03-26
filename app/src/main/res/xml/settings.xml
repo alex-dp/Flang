@@ -19,4 +19,9 @@
         android:summaryOn="@string/lockscreen_summary_on"
         android:title="@string/show_in_lockscreen" />
 
+    <Preference
+        android:icon="@drawable/ic_info_outline_gray_24dp"
+        android:key="vers"
+        android:title="@string/version" />
+
 </PreferenceScreen>

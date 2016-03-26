@@ -59,4 +59,6 @@
     <string name="average">Average</string>
     <string name="chart">Chart</string>
     <string name="by_date">By date</string>
+    <string name="version">Version</string>
+    <string name="stop_clicking">Stop clicking me</string>
 </resources>

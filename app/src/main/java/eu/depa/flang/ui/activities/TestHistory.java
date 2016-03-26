@@ -75,7 +75,7 @@ public class TestHistory extends SharableActivity implements MenuItem.OnMenuItem
         List<String> grades = Arrays.asList(prefs.getString("grades", "").replaceFirst(";;", "").split(";;"));
         Intent share = new Intent(Intent.ACTION_SEND);
         share.putExtra(Intent.EXTRA_TEXT, getString(R.string.my_average_test_score_in) + " " +
-                Constants.getLangsArr()[prefs.getInt("to", 1)] + " " +
+                Constants.getLangsArr(this)[prefs.getInt("to", 1)] + " " +
                 getString(R.string.is) + " " +
                 average(grades) + "!");
         share.setType("text/plain");

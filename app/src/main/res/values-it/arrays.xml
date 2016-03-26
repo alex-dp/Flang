@@ -8,4 +8,32 @@
         <item name="sixty">1 ora</item>
         <item name="twoHours">2 ore</item>
     </string-array>
+
+    <string-array name="langs">
+        <item name="English">Inglese</item>
+        <item name="Spanish">Spagnolo</item>
+        <item name="French">Francese</item>
+        <item name="Italian">Italiano</item>
+        <item name="German">Tedesco</item>
+        <item name="Russian">Russo</item>
+        <item name="Swedish">Svedese</item>
+        <item name="Bulgarian">Bulgaro</item>
+        <item name="Hungarian">Ungherese</item>
+        <item name="Dutch">Olandese</item>
+        <item name="Greek">Greco</item>
+        <item name="Georgian">Georgiano</item>
+        <item name="Danish">Danese</item>
+        <item name="Catalan">Catalano</item>
+        <item name="Latvian">Lettone</item>
+        <item name="Lithuanian">Lituano</item>
+        <item name="Norwegian">Norvegese</item>
+        <item name="Polish">Polacco</item>
+        <item name="Portuguese">Portoghese</item>
+        <item name="Romanian">Romeno</item>
+        <item name="Turkish">Turco</item>
+        <item name="Ukrainian">Ucraino</item>
+        <item name="Finnish">Finlandese</item>
+        <item name="Czech">Ceco</item>
+        <item name="Estonian">Estone</item>
+    </string-array>
 </resources>

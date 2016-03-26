@@ -6,6 +6,7 @@ import android.preference.PreferenceFragment;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import eu.depa.flang.BuildConfig;
 import eu.depa.flang.Constants;
 import eu.depa.flang.R;
 
@@ -20,7 +21,9 @@ public class Settings extends BaseActivity {
                 new PrefsFragment()).commit();
     }
 
-    static public class PrefsFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
+    static public class PrefsFragment extends PreferenceFragment implements
+            Preference.OnPreferenceChangeListener,
+            Preference.OnPreferenceClickListener {
         
         public PrefsFragment(){}
         @Override
@@ -28,8 +31,11 @@ public class Settings extends BaseActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings);
 
-            Preference interval = findPreference("interval");
+            Preference interval = findPreference("interval"),
+                    version = findPreference("vers");
             interval.setOnPreferenceChangeListener(this);
+            version.setOnPreferenceClickListener(this);
+            version.setSummary(BuildConfig.VERSION_NAME);
         }
 
         @Override
@@ -39,6 +45,18 @@ public class Settings extends BaseActivity {
                 case "interval":
                     Constants.resetAlarm(getActivity().getApplicationContext());
                     Toast.makeText(getActivity(), "I worked. sort of.", Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+
+        int clicks = 0;
+
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            clicks++;
+            if (clicks == 5) {
+                Toast.makeText(getActivity(), R.string.stop_clicking, Toast.LENGTH_SHORT).show();
+                clicks = 0;
             }
             return true;
         }

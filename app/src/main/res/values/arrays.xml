@@ -18,4 +18,32 @@
         <item name="sixty">60</item>
         <item name="twoHours">120</item>
     </string-array>
+
+    <string-array name="langs">
+        <item name="English">English</item>
+        <item name="Spanish">Spanish</item>
+        <item name="French">French</item>
+        <item name="Italian">Italian</item>
+        <item name="German">German</item>
+        <item name="Russian">Russian</item>
+        <item name="Swedish">Swedish</item>
+        <item name="Bulgarian">Bulgarian</item>
+        <item name="Hungarian">Hungarian</item>
+        <item name="Dutch">Dutch</item>
+        <item name="Greek">Greek</item>
+        <item name="Georgian">Georgian</item>
+        <item name="Danish">Danish</item>
+        <item name="Catalan">Catalan</item>
+        <item name="Latvian">Latvian</item>
+        <item name="Lithuanian">Lithuanian</item>
+        <item name="Norwegian">Norwegian</item>
+        <item name="Polish">Polish</item>
+        <item name="Portuguese">Portuguese</item>
+        <item name="Romanian">Romanian</item>
+        <item name="Turkish">Turkish</item>
+        <item name="Ukrainian">Ukrainian</item>
+        <item name="Finnish">Finnish</item>
+        <item name="Czech">Czech</item>
+        <item name="Estonian">Estonian</item>
+    </string-array>
 </resources>
