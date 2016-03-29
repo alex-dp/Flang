@@ -32,6 +32,7 @@
         <activity android:name=".ui.activities.TestHistory" />
         <activity android:name=".ui.activities.ScreenSlidePagerActivity" />
         <activity android:name=".ui.activities.TestResults" />
+        <activity android:name=".ui.activities.TestableActivity" />
 
         <service android:name=".NotificationService"/>
     </application>

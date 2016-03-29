@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/intro_backg"
+    android:onClick="next"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_horizontal_margin"
     android:paddingEnd="@dimen/activity_vertical_margin_wide"
@@ -12,23 +13,30 @@
 
     <ImageView
         android:id="@+id/third_slide_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/white_circle" />
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
         android:contentDescription="@string/foo"
-        android:elevation="@dimen/sixdp"
-        android:rotation="30"
+        android:rotation="-30"
         android:src="@drawable/test" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/third_slide_image"
+        android:layout_below="@id/third_slide_image"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:paddingTop="@dimen/twenty_four_dp"
+        android:paddingTop="@dimen/activity_horizontal_margin"
         android:text="@string/third_slide"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textColor="@color/darkGray" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

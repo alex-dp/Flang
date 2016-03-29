@@ -13,13 +13,19 @@
 
     <ImageView
         android:id="@+id/second_slide_image"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/white_circle" />
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
         android:contentDescription="@string/foo"
-        android:elevation="@dimen/sixdp"
-        android:rotation="-30"
+        android:rotation="30"
         android:src="@drawable/bell" />
 
     <TextView
@@ -31,6 +37,6 @@
         android:paddingTop="@dimen/activity_horizontal_margin"
         android:text="@string/second_slide"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textColor="@color/darkGray" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

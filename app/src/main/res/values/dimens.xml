@@ -9,4 +9,5 @@
     <dimen name="sixdp">6dp</dimen>
     <dimen name="twenty_four_dp">24dp</dimen>
     <dimen name="list_row">48dp</dimen>
+    <dimen name="eighteen_dp">18dp</dimen>
 </resources>

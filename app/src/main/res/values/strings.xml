@@ -61,4 +61,10 @@
     <string name="by_date">By date</string>
     <string name="version">Version</string>
     <string name="stop_clicking">Stop clicking me</string>
+    <string name="your_test_will_start_soon">Your test will start soon</string>
+    <string name="stand_by">Stand by</string>
+    <string name="delete_progress">Delete all previous data?</string>
+    <string name="changing_language_will_erase_data">Changing language will erase all previous data</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>

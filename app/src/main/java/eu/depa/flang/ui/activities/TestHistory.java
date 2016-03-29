@@ -7,8 +7,8 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import eu.depa.flang.R;
 import eu.depa.flang.ui.fragments.THistoryByDate;
 import eu.depa.flang.ui.fragments.THistoryChart;
 
-public class TestHistory extends SharableActivity implements MenuItem.OnMenuItemClickListener {
+public class TestHistory extends TestableActivity {
 
     private static String average(List<String> pGrades) {
         double sum = 0.0;
@@ -45,24 +45,6 @@ public class TestHistory extends SharableActivity implements MenuItem.OnMenuItem
         if (getSupportActionBar() != null) getSupportActionBar().setElevation(0);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (Constants.isNetworkAvailable(this))
-            menu.add(0, 0, 1, R.string.take_a_test)
-                .setOnMenuItemClickListener(this)
-                .setIcon(R.drawable.ic_check_white)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        getMenuInflater().inflate(R.menu.share_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId() == 0)
-            startActivity(new Intent(getBaseContext(), Test.class));
-        return true;
-    }
-
     private void setupViewPager(ViewPager viewPager) {
         THAdapter adapter = new THAdapter(getSupportFragmentManager());
         adapter.addFragment(new THistoryByDate(), getString(R.string.by_date));
@@ -80,6 +62,10 @@ public class TestHistory extends SharableActivity implements MenuItem.OnMenuItem
                 average(grades) + "!");
         share.setType("text/plain");
         startActivity(Intent.createChooser(share, getString(R.string.chooser)));
+    }
+
+    public void gotoTest(View view) {
+        Constants.gotoTest(this);
     }
 
     class THAdapter extends FragmentPagerAdapter {

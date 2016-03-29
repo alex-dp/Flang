@@ -56,4 +56,10 @@
     <string name="chart">Grafico</string>
     <string name="stop_clicking">Smettila di toccarmi</string>
     <string name="version">Versione</string>
+    <string name="cancel">Annulla</string>
+    <string name="changing_language_will_erase_data">Cambiare lingua cancellerà tutti i dati precedenti</string>
+    <string name="delete_progress">Eliminare i dati</string>
+    <string name="ok">Ok</string>
+    <string name="stand_by">Aspetta</string>
+    <string name="your_test_will_start_soon">Il test comincerà presto</string>
 </resources>

@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -21,7 +18,7 @@ import com.google.android.gms.ads.AdView;
 import eu.depa.flang.Constants;
 import eu.depa.flang.R;
 
-public class Progress extends SharableActivity implements MenuItem.OnMenuItemClickListener {
+public class Progress extends TestableActivity {
 
     private static Context context;
     @Override
@@ -38,11 +35,6 @@ public class Progress extends SharableActivity implements MenuItem.OnMenuItemCli
         int learnt = prefs.getInt("learned", 0);
 
         count.setText(String.valueOf(learnt));
-
-        if (!Constants.isNetworkAvailable(this) || prefs.getInt("learned", 0) < 3) {
-            Button test = (Button) findViewById(R.id.test);
-            test.setVisibility(View.GONE);
-        }
 
         if (learnt == 1)
             word.setText(R.string.word);
@@ -61,7 +53,7 @@ public class Progress extends SharableActivity implements MenuItem.OnMenuItemCli
                 adView.setAdUnitId(Constants.progress_ad_unit_id);
                 final RelativeLayout mom = (RelativeLayout) findViewById(R.id.progress_mom);
                 final AdRequest adRequest = new AdRequest.Builder()
-                        .addTestDevice("FE6364C53B96FC7B9194F54AA9DED7C3")
+                        .addTestDevice("19D4F3D360C90DD31CE5F521DFBCF172")
                         .build();
 
                 runOnUiThread(new Runnable() {
@@ -76,10 +68,7 @@ public class Progress extends SharableActivity implements MenuItem.OnMenuItemCli
     }
 
     public void gotoTest(View view) {
-        if (Constants.isNetworkAvailable(this))
-            startActivity(new Intent(Progress.this, Test.class));
-        else
-            Toast.makeText(Progress.this, getString(R.string.no_network), Toast.LENGTH_SHORT).show();
+        Constants.gotoTest(context);
     }
 
     public void share(MenuItem item) {
@@ -88,26 +77,8 @@ public class Progress extends SharableActivity implements MenuItem.OnMenuItemCli
         share.putExtra(Intent.EXTRA_TEXT, getString(R.string.i_learned) + " " +
                 String.valueOf(prefs.getInt("learned", 0)) + " " +
                 getString(R.string.words_in) + " " +
-                Constants.getLangsArr(this)[prefs.getInt("to", 0)]);
+                Constants.getLangsArr(context)[prefs.getInt("to", 0)]);
         share.setType("text/plain");
         startActivity(Intent.createChooser(share, getString(R.string.chooser)));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (Constants.isNetworkAvailable(this))
-            menu.add(0, 0, 1, R.string.take_a_test)
-                    .setOnMenuItemClickListener(this)
-                    .setIcon(R.drawable.ic_check_white)
-                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        getMenuInflater().inflate(R.menu.share_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId() == 0)
-            startActivity(new Intent(getBaseContext(), Test.class));
-        return true;
     }
 }

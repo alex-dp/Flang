@@ -2,6 +2,7 @@ package eu.depa.flang.ui.activities;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = getApplicationContext();
+
+        context = this;
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (prefs.getBoolean("first", true)) {
@@ -77,11 +80,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this, Progress.class));
                 break;
             case R.id.nav_feedback:
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "depasquale.a@tuta.io", null));
-                intent.putExtra(Intent.EXTRA_EMAIL, "depasquale.a@tuta.io");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Flang: ");
-                intent.putExtra(Intent.EXTRA_TEXT, "API: " + Build.VERSION.SDK_INT +
-                        "\nVERSION: " + BuildConfig.VERSION_CODE + "\n\n");
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "depasquale.a@tuta.io", null))
+                        .putExtra(Intent.EXTRA_EMAIL, "depasquale.a@tuta.io")
+                        .putExtra(Intent.EXTRA_SUBJECT, "Flang: ")
+                        .putExtra(Intent.EXTRA_TEXT, "API: " + Build.VERSION.SDK_INT +
+                                "\nVERSION: " + BuildConfig.VERSION_CODE + "\n\n");
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         Spinner fromSpinner = (Spinner) findViewById(R.id.from);
-        Spinner toSpinner = (Spinner) findViewById(R.id.to);
+        final Spinner toSpinner = (Spinner) findViewById(R.id.to);
 
         SpinnerAdapter langAdapter = new CustomArrayAdapter<>(
                 context,
@@ -161,19 +164,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                prefs.edit().putInt("to", (int) id).apply();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, final long id) {
+                AlertDialog.Builder wanna_restart = new AlertDialog.Builder(context, R.style.orangePD);
+                wanna_restart.setTitle(R.string.delete_progress)
+                        .setMessage(getString(R.string.changing_language_will_erase_data))
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Constants.deleteAllProgress(prefs);
+                                prefs.edit().putInt("to", (int) id).apply();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                toSpinner.setSelection(prefs.getInt("to", 1));
+                                dialog.dismiss();
+                            }
+                        });
+
+                if (position != prefs.getInt("to", 1)) {
+                    wanna_restart.create();
+                    wanna_restart.show();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
 
     public void getNot(View view) {
-        Intent i = new Intent(context, NotificationService.class);
-        startService(i);
+        startService(new Intent(context, NotificationService.class));
     }
 
     public void resetAlarm(View view) {
