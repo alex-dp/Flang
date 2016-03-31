@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (prefs.getBoolean("first", true)) {
-            startActivityForResult(new Intent(this, ScreenSlidePagerActivity.class), 5682);
+            startActivityForResult(new Intent(this, Help.class), 5682);
             prefs.edit().putBoolean("first", false).apply();
             return;
         }
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
             case R.id.nav_help:
-                startActivity(new Intent(this, ScreenSlidePagerActivity.class));
+                startActivity(new Intent(this, Help.class));
                 break;
             case R.id.nav_test_history:
                 startActivity(new Intent(this, TestHistory.class));
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                prefs.edit().putInt("from", (int) id).apply();
+                prefs.edit().putInt("from", position).apply();
             }
 
             @Override
@@ -164,15 +164,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, final long id) {
-                AlertDialog.Builder wanna_restart = new AlertDialog.Builder(context, R.style.orangePD);
-                wanna_restart.setTitle(R.string.delete_progress)
+            public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder deleterDialog = new AlertDialog.Builder(context, R.style.orangePD);
+                deleterDialog.setTitle(R.string.delete_progress)
                         .setMessage(getString(R.string.changing_language_will_erase_data))
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Constants.deleteAllProgress(prefs);
-                                prefs.edit().putInt("to", (int) id).apply();
+                                prefs.edit().putInt("to", position).apply();
                                 dialog.dismiss();
                             }
                         })
@@ -182,17 +182,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 toSpinner.setSelection(prefs.getInt("to", 1));
                                 dialog.dismiss();
                             }
-                        });
+                        })
+                        .setCancelable(false);
 
                 if (position != prefs.getInt("to", 1)) {
-                    wanna_restart.create();
-                    wanna_restart.show();
+                    deleterDialog.create();
+                    deleterDialog.show();
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }

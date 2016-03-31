@@ -30,7 +30,7 @@
         <activity android:name=".ui.activities.WordInfo" />
         <activity android:name=".ui.activities.Test" />
         <activity android:name=".ui.activities.TestHistory" />
-        <activity android:name=".ui.activities.ScreenSlidePagerActivity" />
+        <activity android:name=".ui.activities.Help" />
         <activity android:name=".ui.activities.TestResults" />
         <activity android:name=".ui.activities.TestableActivity" />
 

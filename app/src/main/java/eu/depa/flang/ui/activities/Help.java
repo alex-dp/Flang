@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import eu.depa.flang.R;
 import eu.depa.flang.ui.fragments.ScreenSlidePageFragment;
 
-public class ScreenSlidePagerActivity extends FragmentActivity {
+public class Help extends FragmentActivity {
 
     private static final int NUM_PAGES = 3;
     private ViewPager mPager;
