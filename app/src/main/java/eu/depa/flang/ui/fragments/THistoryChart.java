@@ -9,8 +9,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -25,11 +23,9 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import eu.depa.flang.Constants;
 import eu.depa.flang.R;
-import eu.depa.flang.ui.activities.Test;
 
-public class THistoryChart extends android.support.v4.app.Fragment implements OnDataPointTapListener, View.OnClickListener {
+public class THistoryChart extends android.support.v4.app.Fragment implements OnDataPointTapListener {
 
     private static String average(List<String> grades) {
         double sum = 0.0;
@@ -58,18 +54,9 @@ public class THistoryChart extends android.support.v4.app.Fragment implements On
             e.printStackTrace();
         }
         final GraphView graph = (GraphView) getActivity().findViewById(R.id.graph);
-        Button test = null;
-        if (getView() != null)
-            test = (Button) getView().findViewById(R.id.test_hc);
-        if (test != null)
-            test.setOnClickListener(this);
 
-        if (grades.isEmpty() || (grades.size() == 1 && grades.get(0).equals(""))) {
-            LinearLayout g = (LinearLayout) getView().findViewById(R.id.no_tests_group);
-            g.setVisibility(View.VISIBLE);
-
-            if ((!Constants.isNetworkAvailable(getContext()) || prefs.getInt("learned", 0) < 3) && test != null)
-                test.setVisibility(View.GONE);
+        if ((grades.isEmpty() || (grades.size() == 1 && grades.get(0).equals(""))) && getView() != null) {
+            getView().findViewById(R.id.no_tests_group).setVisibility(View.VISIBLE);
             graph.setVisibility(View.GONE);
         } else {
             DataPoint[] data = new DataPoint[grades.size()];
@@ -115,10 +102,5 @@ public class THistoryChart extends android.support.v4.app.Fragment implements On
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         onCreate(null);
-    }
-
-    @Override
-    public void onClick(View v) {
-        startActivity(new Intent(getContext(), Test.class));
     }
 }

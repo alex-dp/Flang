@@ -1,5 +1,6 @@
 package eu.depa.flang.ui.activities;
 
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +12,7 @@ public class TestableActivity extends SharableActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (Constants.isNetworkAvailable(this)) {
+        if (Constants.isNetworkAvailable(this) && learnedMoreThan(5)) {
             MenuItem test = menu.add(0, 0, 0, R.string.take_a_test)
                     .setActionView(R.layout.take_a_test_menu_item);
             test.getActionView().setOnClickListener(this);
@@ -28,5 +29,9 @@ public class TestableActivity extends SharableActivity implements View.OnClickLi
 
     public void gotoTest(View view) {
         Constants.gotoTest(this);
+    }
+
+    public boolean learnedMoreThan(int this_much) {
+        return PreferenceManager.getDefaultSharedPreferences(this).getInt("learned", 0) > this_much;
     }
 }

@@ -8,17 +8,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
-import eu.depa.flang.Constants;
 import eu.depa.flang.R;
 import eu.depa.flang.ResultLine;
 import eu.depa.flang.adapters.ResultListAdapter;
@@ -57,22 +53,11 @@ public class THistoryByDate extends android.support.v4.app.Fragment implements V
         if (getView() != null)
             list = (ListView) getView().findViewById(R.id.test_history_list);
 
-        Button test = null;
-        if (getView() != null)
-            test = (Button) getView().findViewById(R.id.test_hbd);
-        if (test != null)
-            test.setOnClickListener(this);
+        if ((grades.isEmpty() || (grades.size() == 1 && grades.get(0).equals(""))) && getView() != null)
+            getView().findViewById(R.id.no_tests_group).setVisibility(View.VISIBLE);
+        else if (getView() != null) {
 
-        if (grades.isEmpty() || (grades.size() == 1 && grades.get(0).equals(""))) {
-            LinearLayout g = (LinearLayout) getView().findViewById(R.id.no_tests_group);
-            g.setVisibility(View.VISIBLE);
-
-            if ((!Constants.isNetworkAvailable(getContext()) || prefs.getInt("learned", 0) < 3) && test != null)
-                test.setVisibility(View.GONE);
-        } else {
-
-            RelativeLayout a = (RelativeLayout) getView().findViewById(R.id.header_history);
-            a.setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.header_history).setVisibility(View.VISIBLE);
             ResultLine[] data = new ResultLine[dates.size()];
 
             for (int i = 0; i < data.length; i++)
