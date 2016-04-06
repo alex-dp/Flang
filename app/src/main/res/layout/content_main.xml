@@ -68,19 +68,10 @@
         android:backgroundTint="@color/colorPrimary"
         android:drawablePadding="@dimen/eightdp"
         android:drawableStart="@drawable/ic_flag_white_24dp"
-        android:drawableTint="@color/white"
         android:onClick="resetAlarm"
         android:text="@string/start_learning"
         android:textAllCaps="true"
         android:textColor="@color/white" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/start"
-        android:layout_centerInParent="true"
-        android:onClick="getNot"
-        android:text="@string/get_notification" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -89,4 +80,13 @@
         android:layout_alignParentEnd="true"
         android:onClick="gotoYandTran"
         android:text="@string/powered_by_yandex_translate" />
+
+    <Button
+        android:id="@+id/get_not_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getNot"
+        android:text="@string/get_notification"
+        android:visibility="gone" />
+
 </RelativeLayout>

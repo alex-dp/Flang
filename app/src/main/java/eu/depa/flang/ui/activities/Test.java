@@ -37,6 +37,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
             n_choices = 4,
             totWidth;
     private String from, to;
+
     private final ImageView[] views = new ImageView[n_questions];
     private final boolean[] correct_arr = new boolean[n_questions];
 
@@ -114,8 +115,8 @@ public class Test extends BaseActivity implements View.OnClickListener {
                 int n_rand = new Random().nextInt(n_choices);
                 for (int i = 0; i < n_choices; i++) {
                     final TextView translation = new TextView(getBaseContext());
-                    translation.setPadding(16, 16, 16, 16);
-                    translation.setBackground(Constants.getDrawable(getApplicationContext(), R.drawable.gray_rect));
+                    translation.setPadding(32, 32, 32, 32);
+                    translation.setBackground(Constants.getDrawable(getApplicationContext(), R.drawable.gray_frame));
                     translation.setTextColor(Color.rgb(0, 0, 0));
                     translation.setTextSize(20);
                     translation.setClickable(true);
@@ -242,7 +243,9 @@ public class Test extends BaseActivity implements View.OnClickListener {
         TextView view;
         try {
             view = (TextView) v;
-            animateEditText((view.getText().toString().equalsIgnoreCase(words_to.get(curr_pos))));
+            boolean correct = view.getText().toString().equalsIgnoreCase(words_to.get(curr_pos));
+            view.setBackground(Constants.getDrawable(this, correct ? R.drawable.green_frame : R.drawable.red_frame));
+            animateEditText(correct);
         } catch (Exception e) {
             e.printStackTrace();
         }

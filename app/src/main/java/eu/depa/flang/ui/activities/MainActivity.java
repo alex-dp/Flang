@@ -35,18 +35,23 @@ import eu.depa.flang.adapters.CustomArrayAdapter;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static Context context;
+    private static SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         context = this;
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (prefs.getBoolean("first", true)) {
-            startActivityForResult(new Intent(this, Help.class), 5682);
-            prefs.edit().putBoolean("first", false).apply();
+            startActivityForResult(new Intent(context, Help.class), 5682);
             return;
         }
 
@@ -108,13 +113,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == resultCode)
+        if (requestCode == resultCode) {
+            prefs.edit().putBoolean("first", false).apply();
             continueOnCreate();
+        }
     }
 
     private void continueOnCreate() {
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -195,6 +201,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        if (Constants.isDebuggable(this))
+            findViewById(R.id.get_not_btn).setVisibility(View.VISIBLE);
     }
 
     public void getNot(View view) {

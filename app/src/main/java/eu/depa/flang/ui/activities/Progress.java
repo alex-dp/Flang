@@ -52,9 +52,7 @@ public class Progress extends TestableActivity {
                 adView.setAdSize(AdSize.BANNER);
                 adView.setAdUnitId(Constants.progress_ad_unit_id);
                 final RelativeLayout mom = (RelativeLayout) findViewById(R.id.progress_mom);
-                final AdRequest adRequest = new AdRequest.Builder()
-                        .addTestDevice("19D4F3D360C90DD31CE5F521DFBCF172")
-                        .build();
+                final AdRequest adRequest = new AdRequest.Builder().build();
 
                 runOnUiThread(new Runnable() {
                     @Override
