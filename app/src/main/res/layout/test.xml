@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/test_mom"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+    android:layout_marginEnd="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_vertical_margin"
+    android:layout_marginRight="@dimen/activity_vertical_margin"
+    android:layout_marginStart="@dimen/activity_vertical_margin"
+    android:layout_marginTop="@dimen/activity_horizontal_margin">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/test_mom"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/word_to_guess"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_marginTop="20dp"
+        android:text="@string/translation"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textSize="35sp"
+        android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:id="@+id/word_to_guess"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/translation"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-            android:textSize="35sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/twenty_four_dp"
-            android:text="@string/translate_word_above" />
-    </LinearLayout>
-</ScrollView>
+    <TextView
+        android:id="@+id/trans_word_above"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/word_to_guess"
+        android:layout_marginBottom="@dimen/twenty_four_dp"
+        android:text="@string/translate_word_above"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

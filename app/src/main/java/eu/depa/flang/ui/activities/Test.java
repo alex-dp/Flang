@@ -7,13 +7,18 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.rmtheis.yandtran.language.Language;
 import com.rmtheis.yandtran.translate.Translate;
 
@@ -64,7 +69,31 @@ public class Test extends BaseActivity implements View.OnClickListener {
             }
         }).run();
 
-        final LinearLayout mom = (LinearLayout) findViewById(R.id.test_mom);
+        final RelativeLayout mom = (RelativeLayout) findViewById(R.id.test_mom);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final AdView adView = new AdView(context);
+                final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                adView.setAdSize(AdSize.BANNER);
+                adView.setAdUnitId(Constants.test_ad_unit_id);
+                final AdRequest adRequest = new AdRequest.Builder().build();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mom.addView(adView, params);
+                        adView.loadAd(adRequest);
+                    }
+                });
+            }
+        }).start();
+
         final LinearLayout notches = new LinearLayout(getBaseContext());
         notches.setOrientation(LinearLayout.HORIZONTAL);
         ViewTreeObserver vto = mom.getViewTreeObserver();
@@ -103,7 +132,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
 
     private void populateViews() {
         final FlowLayout trans_mom = new FlowLayout(getBaseContext());
-        final LinearLayout mom = (LinearLayout) findViewById(R.id.test_mom);
+        final RelativeLayout mom = (RelativeLayout) findViewById(R.id.test_mom);
         final Animation
                 fadeIn = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in),
                 toLeft = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_to_left);
@@ -153,8 +182,9 @@ public class Test extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mom.getChildAt(mom.getChildCount() - 1).setVisibility(View.GONE);
-                mom.addView(trans_mom);
+                mom.removeViewAt(mom.getChildCount() - 2);
+                mom.addView(trans_mom, mom.getChildCount() - 1);
+
                 trans_mom.startAnimation(fadeIn);
             }
 
@@ -162,9 +192,16 @@ public class Test extends BaseActivity implements View.OnClickListener {
             public void onAnimationRepeat(Animation animation) {
             }
         });
+
+        final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.BELOW, R.id.trans_word_above);
+        trans_mom.setLayoutParams(params);
+
         if (curr_pos != 0) {
-            mom.getChildAt(mom.getChildCount() - 1).startAnimation(toLeft);
-        } else mom.addView(trans_mom);
+            mom.getChildAt(mom.getChildCount() - 2).startAnimation(toLeft);
+        } else mom.addView(trans_mom, mom.getChildCount());
     }
 
     private void animateEditText(boolean correct) {
