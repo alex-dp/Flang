@@ -19,7 +19,6 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,12 +26,11 @@ import eu.depa.flang.R;
 
 public class THistoryChart extends android.support.v4.app.Fragment implements OnDataPointTapListener {
 
-    private static String average(List<String> grades) {
+    private static double average(List<String> grades) {
         double sum = 0.0;
-        DecimalFormat df = new DecimalFormat("#.##");
         for (String s : grades)
             sum += Integer.parseInt(s);
-        return String.valueOf(df.format(sum / grades.size()));
+        return sum / grades.size();
     }
 
     @Nullable
@@ -69,14 +67,14 @@ public class THistoryChart extends android.support.v4.app.Fragment implements On
             graph.addSeries(series);
 
             LineGraphSeries<DataPoint> avg = new LineGraphSeries<>(new DataPoint[]{
-                    new DataPoint(0, Double.valueOf(average(grades))),
-                    new DataPoint(series.getHighestValueX(), Double.valueOf(average(grades)))
+                    new DataPoint(0, average(grades)),
+                    new DataPoint(series.getHighestValueX(), average(grades))
             });
 
             avg.setTitle(getString(R.string.average));
             //noinspection deprecation
             avg.setColor(getResources().getColor
-                    (Double.valueOf(average(grades)) >= 6 ?
+                    (average(grades) >= 6 ?
                             R.color.pale_green : R.color.pale_red));
             graph.addSeries(avg);
             series.setOnDataPointTapListener(this);

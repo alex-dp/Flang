@@ -43,7 +43,7 @@
     <string name="begin_toast">Comincerai a ricevere notifiche periodicamente</string>
     <string name="no_tests_yet">Non hai ancora completato alcun test</string>
     <string name="test_history">Storico test</string>
-    <string name="no_network">Non sei connesso a internet</string>
+    <string name="no_network">Non sei connesso a Internet</string>
     <string name="test_results">Risultati test</string>
     <string name="total_score">Punteggio totale</string>
     <string name="i_scored">Ho preso</string>
@@ -58,7 +58,7 @@
     <string name="version">Versione</string>
     <string name="cancel">Annulla</string>
     <string name="changing_language_will_erase_data">Cambiare lingua cancellerà tutti i dati precedenti</string>
-    <string name="delete_progress">Eliminare i dati</string>
+    <string name="delete_progress">Eliminare i dati?</string>
     <string name="ok">Ok</string>
     <string name="stand_by">Aspetta</string>
     <string name="your_test_will_start_soon">Il test comincerà presto</string>
