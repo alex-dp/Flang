@@ -25,8 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:contentDescription="@string/foo"
-        android:rotation="30"
-        android:tint="@color/colorPrimaryDark"
+        android:tint="@color/colorPrimary"
         android:src="@drawable/bell" />
 
     <TextView

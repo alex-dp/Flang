@@ -70,7 +70,6 @@
         android:drawableStart="@drawable/ic_flag_white_24dp"
         android:onClick="resetAlarm"
         android:text="@string/start_learning"
-        android:textAllCaps="true"
         android:textColor="@color/white" />
 
     <TextView

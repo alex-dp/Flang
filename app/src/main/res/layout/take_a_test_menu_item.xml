@@ -1,25 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:layout_width="2dp"
-        android:layout_height="@dimen/twenty_four_dp"
-        android:layout_marginEnd="@dimen/eightdp"
-        android:src="@drawable/white_rect" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingEnd="@dimen/eightdp"
-        android:paddingStart="@dimen/eightdp"
-        android:text="@string/take_a_test"
-        android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-</LinearLayout>
+    android:layout_marginStart="@dimen/eightdp"
+    android:text="@string/take_a_test"
+    android:textColor="@color/white"
+    android:backgroundTint="@color/colorPrimaryDark" />

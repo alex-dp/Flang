@@ -32,7 +32,7 @@ import eu.depa.flang.R;
 
 public class Test extends BaseActivity implements View.OnClickListener {
 
-    private static String translation = "default";
+    private static String translation;
     private static Context context;
     private final List<String> words_from = new ArrayList<>(),
             words_to = new ArrayList<>();
@@ -158,7 +158,11 @@ public class Test extends BaseActivity implements View.OnClickListener {
                     else {
                         Random m_rand = new Random(new Random().nextInt());
                         int pos = m_rand.nextInt(Constants.words.length);
-                        String temp = translate(Constants.words[pos], "en", from);
+                        String temp;
+                        if (from.equals("en"))
+                            temp = Constants.words[pos];
+                        else
+                            temp = translate(Constants.words[pos], "en", from);
                         final String fin = translate(temp, from, to);
                         translation.setText(fin);
                     }
@@ -196,6 +200,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
         final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+
         params.addRule(RelativeLayout.BELOW, R.id.trans_word_above);
         trans_mom.setLayoutParams(params);
 
@@ -204,7 +209,7 @@ public class Test extends BaseActivity implements View.OnClickListener {
         } else mom.addView(trans_mom, mom.getChildCount());
     }
 
-    private void animateEditText(boolean correct) {
+    void animateEditText(boolean correct) {
 
         final Animation
                 toLeftAnim = AnimationUtils.loadAnimation(getBaseContext(), R.anim.slide_to_left),
