@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
-    <string name="slogan">Learn a language, one word at a time.</string>
+    <string name="slogan">Learn at your pace.</string>
     <string name="interval">Time interval</string>
     <string name="notif_freq">Time between notifications</string>
     <string name="settings">Settings</string>

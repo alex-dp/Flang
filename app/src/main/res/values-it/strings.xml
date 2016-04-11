@@ -5,7 +5,6 @@
     <string name="email_noclient">Nessuna applicazione adatta</string>
     <string name="feedback">Feedback</string>
     <string name="first_slide">Flang è uno strumento per aiutarti ad imparare qualsiasi lingua.</string>
-    <string name="foo">foo</string>
     <string name="from">Da</string>
     <string name="help">Aiuto</string>
     <string name="i_learned">Ho imparato</string>
@@ -19,7 +18,7 @@
     <string name="settings">Impostazioni</string>
     <string name="share">Condividi</string>
     <string name="show_in_lockscreen">Notifiche pubbliche</string>
-    <string name="slogan">Impara una lingua, una parola alla volta</string>
+    <string name="slogan">Impara al tuo ritmo.</string>
     <string name="start_learning">Comincia</string>
     <string name="take_a_test">Esaminati</string>
     <string name="third_slide">Quando avrai imparato tutte le parole, continua ad allenarti, o esaminati e mostra a tutti le tue nuove conoscenze!</string>

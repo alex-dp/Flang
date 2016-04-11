@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void resetAlarm(View view) {
+        getNot(null);
         Constants.resetAlarm(context);
         Toast.makeText(context, R.string.begin_toast, Toast.LENGTH_SHORT).show();
     }

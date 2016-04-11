@@ -6,7 +6,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -107,8 +106,8 @@ public class NotificationService extends Service {
                             .setSmallIcon(R.drawable.ic_task)
                             .setContentTitle(translatedText)
                             .setContentText(chosen)
-                            .setColor(Color.argb(0x00, 0xff, 0x3b, 0x3b))
-                            .setLights(Color.argb(0x00, 0xff, 0xff, 0xff), 500, 500);
+                            .setColor(Constants.getColor(context, R.color.colorPrimaryDark))
+                            .setLights(Constants.getColor(context, R.color.colorPrimaryDark), 5000, 500);
             if (prefs.getBoolean("show_in_lockscreen", true))
                 builder.setPublicVersion(builder.build());
 

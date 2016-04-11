@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="intervals">
+        <item name="zero">Ninguna notificación</item>
+        <item name="five">5 minutos</item>
+        <item name="ten">10 minutos</item>
+        <item name="twenty">20 minutos</item>
+        <item name="sixty">1 hora</item>
+        <item name="twoHours">2 horas</item>
+    </string-array>
+
+    <string-array name="langs">
+        <item name="English">Inglés</item>
+        <item name="Spanish">Español</item>
+        <item name="French">Francés</item>
+        <item name="Italian">Italiano</item>
+        <item name="German">Alemán</item>
+        <item name="Russian">Ruso</item>
+        <item name="Swedish">Sueco</item>
+        <item name="Bulgarian">Búlgaro</item>
+        <item name="Hungarian">Húngaro</item>
+        <item name="Dutch">Olandés</item>
+        <item name="Greek">Griego</item>
+        <item name="Georgian">Georgiano</item>
+        <item name="Danish">Danés</item>
+        <item name="Catalan">Catalano</item>
+        <item name="Latvian">Letón</item>
+        <item name="Lithuanian">Lituano</item>
+        <item name="Norwegian">Noruego</item>
+        <item name="Polish">Polaco</item>
+        <item name="Portuguese">Portugués</item>
+        <item name="Romanian">Rumano</item>
+        <item name="Turkish">Turco</item>
+        <item name="Ukrainian">Ucraniano</item>
+        <item name="Finnish">Finlandés</item>
+        <item name="Czech">Checo</item>
+        <item name="Estonian">Estonio</item>
+    </string-array>
+</resources>

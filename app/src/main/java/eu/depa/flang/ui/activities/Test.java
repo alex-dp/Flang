@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -30,7 +31,7 @@ import eu.depa.flang.Constants;
 import eu.depa.flang.FlowLayout;
 import eu.depa.flang.R;
 
-public class Test extends BaseActivity implements View.OnClickListener {
+public class Test extends BaseActivity implements View.OnClickListener, MediaPlayer.OnCompletionListener {
 
     private static String translation;
     private static Context context;
@@ -45,6 +46,8 @@ public class Test extends BaseActivity implements View.OnClickListener {
 
     private final ImageView[] views = new ImageView[n_questions];
     private final boolean[] correct_arr = new boolean[n_questions];
+
+    MediaPlayer right, wrong;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,11 @@ public class Test extends BaseActivity implements View.OnClickListener {
             }
         });
         populateViews();
+
+        right = MediaPlayer.create(this, R.raw.correct);
+        wrong = MediaPlayer.create(this, R.raw.wrong);
+        right.setOnCompletionListener(this);
+        wrong.setOnCompletionListener(this);
     }
 
     private void populateViews() {
@@ -238,6 +246,9 @@ public class Test extends BaseActivity implements View.OnClickListener {
         TB.startAnimation(toLeftAnim);
         views[curr_pos].setImageDrawable(Constants.getDrawable(this,
                 (correct) ? R.drawable.green_rect : R.drawable.red_rect));
+
+        ((correct) ? right : wrong).start();
+
         correct_arr[curr_pos] = correct;
         curr_pos++;
         if (curr_pos >= n_questions) {
@@ -291,5 +302,19 @@ public class Test extends BaseActivity implements View.OnClickListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        mp.pause();
+        mp.seekTo(0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        right.release();
+        wrong.release();
     }
 }
