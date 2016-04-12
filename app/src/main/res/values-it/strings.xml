@@ -62,4 +62,7 @@
     <string name="stand_by">Aspetta</string>
     <string name="your_test_will_start_soon">Il test comincerà presto</string>
     <string name="youll_take_test">Potrai farlo una volta imparate abbastanza parole</string>
+    <string name="sleepoff">Non riceverai notifiche di notte</string>
+    <string name="sleepon">Riceverai le notifiche anche di notte</string>
+    <string name="sleeptitle">Blocca notifiche notturne</string>
 </resources>

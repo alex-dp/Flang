@@ -19,6 +19,14 @@
         android:summaryOn="@string/lockscreen_summary_on"
         android:title="@string/show_in_lockscreen" />
 
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_bed_gray_24dp"
+        android:summaryOff="@string/sleepoff"
+        android:summaryOn="@string/sleepon"
+        android:key="sleep"
+        android:title="@string/sleeptitle" />
+
     <Preference
         android:icon="@drawable/ic_info_outline_gray_24dp"
         android:key="vers"

@@ -62,4 +62,7 @@
     <string name="std_ord_indicator">ª</string>
     <string name="version">Versión</string>
     <string name="translation">Traducción</string>
+    <string name="sleepoff">No recibirás notificaciones en la noche</string>
+    <string name="sleepon">Recibirás notificacones, también en la noche</string>
+    <string name="sleeptitle">Bloquea notificaciones en la noche</string>
 </resources>

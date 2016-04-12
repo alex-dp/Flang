@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import eu.depa.flang.BottomToast;
 import eu.depa.flang.BuildConfig;
 import eu.depa.flang.Constants;
 import eu.depa.flang.NotificationService;
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 AlertDialog.Builder deleterDialog = new AlertDialog.Builder(context, R.style.orangePD);
                 deleterDialog.setTitle(R.string.delete_progress)
                         .setMessage(getString(R.string.changing_language_will_erase_data))
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Constants.deleteAllProgress(prefs);
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 dialog.dismiss();
                             }
                         })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 toSpinner.setSelection(prefs.getInt("to", 1));
@@ -213,7 +214,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void resetAlarm(View view) {
         getNot(null);
         Constants.resetAlarm(context);
-        Toast.makeText(context, R.string.begin_toast, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, R.string.begin_toast, Toast.LENGTH_SHORT).show();
+        new BottomToast(this, R.string.begin_toast).show();
     }
 
     public void gotoGitHub(View view) {

@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import com.rmtheis.yandtran.language.Language;
 import com.rmtheis.yandtran.translate.Translate;
 
+import java.util.Calendar;
 import java.util.Random;
 
 import eu.depa.flang.ui.activities.WordInfo;
@@ -33,11 +34,19 @@ public class NotificationService extends Service {
     private void work() {
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getString("interval", "5").equals("0"))
+        if (prefs.getString("interval", "5").equals("0") ||
+                prefs.getInt("learned", 0) >= Constants.words.length ||
+                isNight(prefs))
             stopSelf();
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "flang");
         mWakeLock.acquire();
         new PollTask(this).execute();
+    }
+
+    private boolean isNight(SharedPreferences prefs) {
+        return prefs.getBoolean("sleep", true) &&
+                (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 23 ||
+                        Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= 8);
     }
 
     @Override
@@ -100,7 +109,6 @@ public class NotificationService extends Service {
             super.onPostExecute(aVoid);
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            SharedPreferences.Editor editor = prefs.edit();
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_task)
@@ -111,14 +119,7 @@ public class NotificationService extends Service {
             if (prefs.getBoolean("show_in_lockscreen", true))
                 builder.setPublicVersion(builder.build());
 
-            if(prefs.getInt("learned", 0) >= Constants.words.length) {
-                builder = builder.setContentText("You learned them all!");
-                editor.putInt("learned", 0).apply();
-                for (int i = 0; i < Constants.words.length; i++)
-                    editor.putBoolean("w" + String.valueOf(i), false).apply();
-            }
-
-            int NOTIFICATION_ID = 12345;
+            int NOTIFICATION_ID = new Random().nextInt(600);
 
             Intent targetIntent = new Intent(context, WordInfo.class);
             targetIntent.putExtra("original", chosen)

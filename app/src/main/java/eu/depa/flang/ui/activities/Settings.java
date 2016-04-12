@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import eu.depa.flang.BottomToast;
 import eu.depa.flang.BuildConfig;
 import eu.depa.flang.Constants;
 import eu.depa.flang.R;
@@ -43,8 +43,17 @@ public class Settings extends BaseActivity {
 
             switch (preference.getKey()) {
                 case "interval":
-                    Constants.resetAlarm(getActivity().getApplicationContext());
-                    Toast.makeText(getActivity(), "I worked. sort of.", Toast.LENGTH_SHORT).show();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Constants.resetAlarm(getActivity().getApplicationContext());
+                        }
+                    }).start();
             }
             return true;
         }
@@ -55,7 +64,7 @@ public class Settings extends BaseActivity {
         public boolean onPreferenceClick(Preference preference) {
             clicks++;
             if (clicks == 5) {
-                Toast.makeText(getActivity(), R.string.stop_clicking, Toast.LENGTH_SHORT).show();
+                new BottomToast(getActivity(), R.string.stop_clicking).show();
                 clicks = 0;
             }
             return true;

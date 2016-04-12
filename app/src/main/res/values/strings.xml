@@ -68,4 +68,7 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="youll_take_test">You\'ll be able to take a test once you\'ve learnt enough words</string>
+    <string name="sleepoff">You won\'t get any notifications at night</string>
+    <string name="sleepon">You\'ll get notifications, even at night</string>
+    <string name="sleeptitle">Block notifications at night</string>
 </resources>
