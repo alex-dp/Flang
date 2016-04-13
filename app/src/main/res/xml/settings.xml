@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <ListPreference
-        android:defaultValue="10"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <EditTextPreference
+        android:defaultValue="30"
         android:dialogIcon="@drawable/ic_time_gray_24dp"
-        android:entries="@array/intervals"
-        android:entryValues="@array/intervalVals"
         android:icon="@drawable/ic_time_gray_24dp"
         android:key="interval"
         android:summary="@string/notif_freq"
-        android:title="@string/interval" />
+        android:title="@string/interval"
+        app:theme="@style/orangePD"
+        android:theme="@style/orangePD" />
 
     <CheckBoxPreference
         android:defaultValue="true"
@@ -22,8 +23,8 @@
     <CheckBoxPreference
         android:defaultValue="true"
         android:icon="@drawable/ic_bed_gray_24dp"
-        android:summaryOff="@string/sleepoff"
-        android:summaryOn="@string/sleepon"
+        android:summaryOff="@string/sleepon"
+        android:summaryOn="@string/sleepoff"
         android:key="sleep"
         android:title="@string/sleeptitle" />
 

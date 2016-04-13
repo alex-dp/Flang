@@ -32,20 +32,21 @@ public class NotificationService extends Service {
     }
 
     private void work() {
-        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getString("interval", "5").equals("0") ||
+        if (!(prefs.getString("interval", "5").equals("0") ||
                 prefs.getInt("learned", 0) >= Constants.words.length ||
-                isNight(prefs))
-            stopSelf();
-        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "flang");
-        mWakeLock.acquire();
-        new PollTask(this).execute();
+                isNight(prefs))) {
+
+            PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "flang");
+            mWakeLock.acquire();
+            new PollTask(this).execute();
+        }
     }
 
     private boolean isNight(SharedPreferences prefs) {
         return prefs.getBoolean("sleep", true) &&
-                (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 23 ||
+                (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 22 ||
                         Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= 8);
     }
 
@@ -58,7 +59,8 @@ public class NotificationService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mWakeLock.release();
+        if (mWakeLock != null)
+            mWakeLock.release();
     }
 
     class PollTask extends AsyncTask<Void, Void, Void> {
@@ -74,8 +76,8 @@ public class NotificationService extends Service {
         protected Void doInBackground(Void... params) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = prefs.edit();
-            String from = Constants.langCodes[prefs.getInt("from", 0)];
-            String to = Constants.langCodes[prefs.getInt("to", 1)];
+            String from = Constants.langCodes[prefs.getInt("from", 0)],
+                    to = Constants.langCodes[prefs.getInt("to", 1)];
 
             int random;
             do
@@ -85,9 +87,10 @@ public class NotificationService extends Service {
             chosen = Constants.words[random];
             chosen = translate(chosen, "en", from);
             translatedText = translate(chosen, from, to);
-            editor.putInt("learned", prefs.getInt("learned", 0) + 1).apply();
-
-            editor.putBoolean("w" + String.valueOf(random), true).apply();
+            editor
+                    .putInt("learned", prefs.getInt("learned", 0) + 1)
+                    .putBoolean("w" + String.valueOf(random), true)
+                    .apply();
             return null;
         }
 
@@ -124,7 +127,8 @@ public class NotificationService extends Service {
             Intent targetIntent = new Intent(context, WordInfo.class);
             targetIntent.putExtra("original", chosen)
                     .putExtra("translated", translatedText)
-                    .putExtra("wordInfo", true);
+                    .putExtra("wordInfo", true)
+                    .putExtra("id", NOTIFICATION_ID);
             PendingIntent contentIntent = PendingIntent.getActivity(context, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(contentIntent);
             NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

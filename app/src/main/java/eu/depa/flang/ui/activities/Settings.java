@@ -1,8 +1,12 @@
 package eu.depa.flang.ui.activities;
 
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
+import android.text.InputType;
+import android.view.View;
 import android.widget.ListView;
 
 import eu.depa.flang.BottomToast;
@@ -24,22 +28,43 @@ public class Settings extends BaseActivity {
     static public class PrefsFragment extends PreferenceFragment implements
             Preference.OnPreferenceChangeListener,
             Preference.OnPreferenceClickListener {
+
+        int clicks = 0;
         
         public PrefsFragment(){}
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings);
 
-            Preference interval = findPreference("interval"),
-                    version = findPreference("vers");
+            EditTextPreference interval = (EditTextPreference) findPreference("interval");
+            Preference version = findPreference("vers");
             interval.setOnPreferenceChangeListener(this);
+            interval.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+            interval.getEditText().setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             version.setOnPreferenceClickListener(this);
             version.setSummary(BuildConfig.VERSION_NAME);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    //noinspection InfiniteLoopStatement
+                    while (true) {
+                        if (clicks > 0)
+                            clicks--;
+                        try {
+                            Thread.sleep(700);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
         }
 
         @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue) {
+        public boolean onPreferenceChange(final Preference preference, final Object newValue) {
 
             switch (preference.getKey()) {
                 case "interval":
@@ -51,14 +76,18 @@ public class Settings extends BaseActivity {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            Constants.resetAlarm(getActivity().getApplicationContext());
+                            if (!newValue.equals(""))
+                                Constants.resetAlarm(getActivity().getApplicationContext());
+                            else PreferenceManager
+                                    .getDefaultSharedPreferences(getActivity())
+                                    .edit()
+                                    .putString("interval", "30")
+                                    .apply();
                         }
                     }).start();
             }
             return true;
         }
-
-        int clicks = 0;
 
         @Override
         public boolean onPreferenceClick(Preference preference) {

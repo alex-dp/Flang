@@ -40,7 +40,7 @@ public class WordInfo extends SharableActivity {
         setTitle(R.string.word_info);
 
         NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nManager.cancel(12345);
+        nManager.cancel(getIntent().getIntExtra("id", 0));
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int learned = prefs.getInt("learned", 1);

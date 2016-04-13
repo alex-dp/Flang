@@ -40,6 +40,7 @@ public class BottomToast extends Toast {
         view.setPadding(32, 32, 32, 32);
         view.setTextColor(Constants.getColor(context, R.color.white_background));
         view.setTextSize(17);
+        view.setGravity(View.TEXT_ALIGNMENT_CENTER);
 
         layout.addView(view);
         setGravity(Gravity.BOTTOM, 0, 64);
