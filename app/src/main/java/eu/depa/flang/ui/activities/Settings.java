@@ -27,10 +27,12 @@ public class Settings extends BaseActivity {
 
     static public class PrefsFragment extends PreferenceFragment implements
             Preference.OnPreferenceChangeListener,
-            Preference.OnPreferenceClickListener {
+            Preference.OnPreferenceClickListener,
+            View.OnFocusChangeListener {
 
         int clicks = 0;
-        
+        private EditTextPreference interval;
+
         public PrefsFragment(){}
 
         @Override
@@ -38,12 +40,15 @@ public class Settings extends BaseActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings);
 
-            EditTextPreference interval = (EditTextPreference) findPreference("interval");
+            interval = (EditTextPreference) findPreference("interval");
             Preference version = findPreference("vers");
+
             interval.setOnPreferenceChangeListener(this);
             interval.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
             interval.getEditText().setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             interval.getEditText().setHint(R.string.minutes);
+            interval.getEditText().setOnFocusChangeListener(this);
+
             version.setOnPreferenceClickListener(this);
             version.setSummary(BuildConfig.VERSION_NAME);
 
@@ -62,6 +67,13 @@ public class Settings extends BaseActivity {
                     }
                 }
             }).start();
+        }
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+
+            if (v.equals(interval.getEditText()) && hasFocus)
+                interval.getEditText().setSelection(interval.getEditText().length());
         }
 
         @Override

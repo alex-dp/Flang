@@ -85,8 +85,13 @@ public class NotificationService extends Service {
             while (prefs.getBoolean("w" + String.valueOf(random), false));
 
             chosen = Constants.words[random];
-            chosen = translate(chosen, "en", from);
-            translatedText = translate(chosen, from, to);
+            String wordEn = chosen;
+
+            if (!from.equals("en"))
+                chosen = translate(chosen, "en", from);
+
+            translatedText = (to.equals("en")) ?
+                    wordEn : translate(wordEn, "en", to);
             editor
                     .putInt("learned", prefs.getInt("learned", 0) + 1)
                     .putBoolean("w" + String.valueOf(random), true)

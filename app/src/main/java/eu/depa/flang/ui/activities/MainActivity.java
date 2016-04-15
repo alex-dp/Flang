@@ -210,6 +210,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void getNot(View view) {
         startService(new Intent(context, NotificationService.class));
+
+        if (view != null)
+            view.setVisibility(View.INVISIBLE);
     }
 
     public void resetAlarm(View view) {
@@ -246,13 +249,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fromSpinner.setSelection(prefs.getInt("from", 0));
             toSpinner.setSelection(prefs.getInt("to", 1));
         } else {
-            final ScaleAnimation shrinkOut = (ScaleAnimation) AnimationUtils.loadAnimation(context, R.anim.shrink_out),
-                    bloatIn = (ScaleAnimation) AnimationUtils.loadAnimation(context, R.anim.bloat_in);
+            final ScaleAnimation shrinkOut = (ScaleAnimation) AnimationUtils.loadAnimation(context, R.anim.shrink_out_linear),
+                    bloatIn = (ScaleAnimation) AnimationUtils.loadAnimation(context, R.anim.bloat_in_linear);
 
-            shrinkOut.setInterpolator(context, android.R.interpolator.linear);
-            bloatIn.setInterpolator(context, android.R.interpolator.linear);
-            shrinkOut.setDuration(200);
-            bloatIn.setDuration(200);
             shrinkOut.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
