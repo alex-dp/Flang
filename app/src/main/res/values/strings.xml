@@ -71,4 +71,5 @@
     <string name="sleepoff">You won\'t get any notifications at night</string>
     <string name="sleepon">You\'ll get notifications, even at night</string>
     <string name="sleeptitle">Block notifications at night</string>
+    <string name="minutes">Minutes</string>
 </resources>

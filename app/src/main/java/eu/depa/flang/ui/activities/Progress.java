@@ -18,7 +18,7 @@ import com.google.android.gms.ads.AdView;
 import eu.depa.flang.Constants;
 import eu.depa.flang.R;
 
-public class Progress extends TestableActivity {
+public class Progress extends SharableActivity {
 
     private static Context context;
     @Override
@@ -38,6 +38,9 @@ public class Progress extends TestableActivity {
 
         if (learnt == 1)
             word.setText(R.string.word);
+
+        if (prefs.getInt("learned", 0) >= 2)
+            findViewById(R.id.gototest_btn).setVisibility(View.VISIBLE);
 
         new Thread(new Runnable() {
             @Override

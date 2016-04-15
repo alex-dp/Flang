@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <EditTextPreference
         android:defaultValue="30"
-        android:dialogIcon="@drawable/ic_time_gray_24dp"
         android:icon="@drawable/ic_time_gray_24dp"
         android:key="interval"
         android:summary="@string/notif_freq"

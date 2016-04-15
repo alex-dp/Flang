@@ -36,4 +36,18 @@
         android:textAllCaps="true"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         android:layout_centerHorizontal="true" />
+
+    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gototest_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/take_a_test"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:layout_marginTop="@dimen/twenty_four_dp"
+        android:onClick="gotoTest"
+        android:layout_below="@id/word_or_words"
+        android:visibility="gone" />
 </RelativeLayout>

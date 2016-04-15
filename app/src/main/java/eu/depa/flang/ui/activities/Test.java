@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -33,21 +32,18 @@ import eu.depa.flang.R;
 
 public class Test extends BaseActivity implements View.OnClickListener, MediaPlayer.OnCompletionListener {
 
-    private static String translation;
     private static Context context;
     private final List<String> words_from = new ArrayList<>(),
             words_to = new ArrayList<>();
     private int curr_pos = 0,
-            singlePad = 5,
             n_questions = 10,
-            n_choices = 4,
-            totWidth;
+            n_choices = 4;
     private String from, to;
 
     private final ImageView[] views = new ImageView[n_questions];
     private final boolean[] correct_arr = new boolean[n_questions];
 
-    MediaPlayer right, wrong;
+    private MediaPlayer right, wrong;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,8 +62,12 @@ public class Test extends BaseActivity implements View.OnClickListener, MediaPla
             public void run() {
                 for (int i = 0; i < n_questions; i++) {
                     int original_pos = or_rand.nextInt(Constants.words.length);
-                    words_from.add(translate(Constants.words[original_pos], "en", from));
-                    words_to.add(translate(words_from.get(i), from, to));
+                    words_from.add(
+                            (from.equals("en")) ?
+                                    Constants.words[original_pos] : translate(Constants.words[original_pos], "en", from));
+                    words_to.add(
+                            (to.equals("en")) ?
+                                    Constants.words[original_pos] : translate(words_from.get(i), from, to));
                 }
             }
         }).run();
@@ -99,37 +99,27 @@ public class Test extends BaseActivity implements View.OnClickListener, MediaPla
 
         final LinearLayout notches = new LinearLayout(getBaseContext());
         notches.setOrientation(LinearLayout.HORIZONTAL);
-        ViewTreeObserver vto = mom.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 12, 1);
+        layoutParams.setMarginStart(5);
+
+        new Thread(new Runnable() {
             @Override
-            public void onGlobalLayout() {
-                mom.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                totWidth = mom.getMeasuredWidth() + singlePad;
+            public void run() {
+                for (int i = 0; i < n_questions; i++) {
+                    views[i] = new ImageView(getBaseContext());
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < n_questions; i++) {
-                            views[i] = new ImageView(getBaseContext());
-                            float width = (totWidth / n_questions) - singlePad;
-                            final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int) width, 12);
-                            layoutParams.setMarginStart(singlePad);
-                            views[i].setImageDrawable(Constants.getDrawable(
-                                    getApplicationContext(), R.drawable.gray_rect));
-                            final int finalI = i;
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    notches.addView(views[finalI], layoutParams);
-                                }
-                            });
-                        }
-                    }
-                }).start();
+                    views[i].setImageDrawable(Constants.getDrawable(
+                            getApplicationContext(), R.drawable.gray_rect));
 
-                mom.addView(notches, 0);
+                    notches.addView(views[i], layoutParams);
+                }
             }
-        });
+        }).start();
+
+        mom.addView(notches, 0, new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         populateViews();
 
         right = MediaPlayer.create(this, R.raw.correct);
@@ -166,12 +156,10 @@ public class Test extends BaseActivity implements View.OnClickListener, MediaPla
                     else {
                         Random m_rand = new Random(new Random().nextInt());
                         int pos = m_rand.nextInt(Constants.words.length);
-                        String temp;
-                        if (from.equals("en"))
-                            temp = Constants.words[pos];
-                        else
-                            temp = translate(Constants.words[pos], "en", from);
-                        final String fin = translate(temp, from, to);
+
+                        String fin = (to.equals("en")) ?
+                                Constants.words[pos] : translate(Constants.words[pos], "en", to);
+
                         translation.setText(fin);
                     }
                     translation.setOnClickListener((Test) context);
@@ -270,6 +258,7 @@ public class Test extends BaseActivity implements View.OnClickListener, MediaPla
         }
     }
 
+    static private String translation;
     private String translate(final String word, final String from, final String to) {
 
         Translate.setKey(Constants.key);
@@ -284,9 +273,8 @@ public class Test extends BaseActivity implements View.OnClickListener, MediaPla
             }
         });
         translate.start();
-        while (true) {
+        while (true)
             if (!translate.isAlive()) break;
-        }
 
         return translation;
     }

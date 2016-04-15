@@ -65,4 +65,5 @@
     <string name="sleepoff">Non riceverai notifiche di notte</string>
     <string name="sleepon">Riceverai le notifiche anche di notte</string>
     <string name="sleeptitle">Blocca notifiche notturne</string>
+    <string name="minutes">Minuti</string>
 </resources>

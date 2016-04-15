@@ -21,6 +21,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -139,10 +142,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Bitmap bmp = null;
             if (bmpd != null)
                 bmp = bmpd.getBitmap();
-            //noinspection deprecation
             setTaskDescription(new ActivityManager.TaskDescription(null,
                     bmp,
-                    getResources().getColor(R.color.colorPrimary)));
+                    Constants.getColor(this, R.color.colorPrimary)));
         }
 
         Spinner fromSpinner = (Spinner) findViewById(R.id.from);
@@ -155,8 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fromSpinner.setAdapter(langAdapter);
         toSpinner.setAdapter(langAdapter);
 
-        fromSpinner.setSelection(prefs.getInt("from", 0));
-        toSpinner.setSelection(prefs.getInt("to", 1));
+        updateSpinners(fromSpinner, toSpinner, false);
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -178,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Constants.deleteAllProgress(prefs);
+                                Constants.deleteAllProgress(prefs.edit());
                                 prefs.edit().putInt("to", position).apply();
                                 dialog.dismiss();
                             }
@@ -214,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void resetAlarm(View view) {
         getNot(null);
         Constants.resetAlarm(context);
-        //Toast.makeText(context, R.string.begin_toast, Toast.LENGTH_SHORT).show();
         new BottomToast(this, R.string.begin_toast).show();
     }
 
@@ -224,5 +224,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void gotoYandTran(View view) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://translate.yandex.com")));
+    }
+
+    public void swapLangs(View view) {
+        view.startAnimation(AnimationUtils.loadAnimation(context, R.anim.swap));
+
+        Spinner fromSpinner = (Spinner) findViewById(R.id.from);
+        final Spinner toSpinner = (Spinner) findViewById(R.id.to);
+
+        prefs.edit()
+                .putInt("from", toSpinner.getSelectedItemPosition())
+                .putInt("to", fromSpinner.getSelectedItemPosition())
+                .apply();
+
+        updateSpinners(fromSpinner, toSpinner, true);
+    }
+
+    private void updateSpinners(final Spinner fromSpinner, final Spinner toSpinner, boolean animate) {
+
+        if (!animate) {
+            fromSpinner.setSelection(prefs.getInt("from", 0));
+            toSpinner.setSelection(prefs.getInt("to", 1));
+        } else {
+            final ScaleAnimation shrinkOut = (ScaleAnimation) AnimationUtils.loadAnimation(context, R.anim.shrink_out),
+                    bloatIn = (ScaleAnimation) AnimationUtils.loadAnimation(context, R.anim.bloat_in);
+
+            shrinkOut.setInterpolator(context, android.R.interpolator.linear);
+            bloatIn.setInterpolator(context, android.R.interpolator.linear);
+            shrinkOut.setDuration(200);
+            bloatIn.setDuration(200);
+            shrinkOut.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    fromSpinner.setSelection(prefs.getInt("from", 0));
+                    toSpinner.setSelection(prefs.getInt("to", 1));
+
+                    fromSpinner.startAnimation(bloatIn);
+                    toSpinner.startAnimation(bloatIn);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
+            fromSpinner.startAnimation(shrinkOut);
+            toSpinner.startAnimation(shrinkOut);
+        }
     }
 }

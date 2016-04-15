@@ -14,4 +14,5 @@
     <color name="red">#F44336</color>
     <color name="pale_red">#ef5350</color>
     <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
 </resources>

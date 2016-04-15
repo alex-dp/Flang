@@ -16,47 +16,58 @@
         android:id="@+id/texts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/twenty_four_dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="@string/from"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:layout_marginEnd="12dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
             android:text="@string/to"
-            android:textAllCaps="true"/>
+            android:layout_weight="1"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:layout_marginStart="12dp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/spinners"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@id/texts"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
+        android:gravity="center_vertical">
 
         <Spinner
             android:id="@+id/from"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:layout_marginTop="0dp"
             android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrows_gray_24dp"
+            android:onClick="swapLangs"
+            android:background="@color/transparent" />
 
         <Spinner
             android:id="@+id/to"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginTop="0dp" />
     </LinearLayout>
 
     <Button
@@ -70,7 +81,8 @@
         android:drawableStart="@drawable/ic_flag_white_24dp"
         android:onClick="resetAlarm"
         android:text="@string/start_learning"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/twenty_four_dp" />
 
     <TextView
         android:layout_width="wrap_content"

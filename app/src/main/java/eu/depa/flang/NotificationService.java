@@ -122,7 +122,7 @@ public class NotificationService extends Service {
             if (prefs.getBoolean("show_in_lockscreen", true))
                 builder.setPublicVersion(builder.build());
 
-            int NOTIFICATION_ID = new Random().nextInt(600);
+            int NOTIFICATION_ID = 49165;
 
             Intent targetIntent = new Intent(context, WordInfo.class);
             targetIntent.putExtra("original", chosen)

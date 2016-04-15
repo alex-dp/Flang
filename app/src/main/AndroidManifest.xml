@@ -23,16 +23,36 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.BaseActivity" />
-        <activity android:name=".ui.activities.SharableActivity" />
-        <activity android:name=".ui.activities.Settings" />
-        <activity android:name=".ui.activities.Progress" />
-        <activity android:name=".ui.activities.WordInfo" />
-        <activity android:name=".ui.activities.Test" />
-        <activity android:name=".ui.activities.TestHistory" />
-        <activity android:name=".ui.activities.Help" />
-        <activity android:name=".ui.activities.TestResults" />
-        <activity android:name=".ui.activities.TestableActivity" />
+        <activity
+            android:name=".ui.activities.BaseActivity"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.SharableActivity"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.Settings"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.Progress"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.WordInfo"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.Test"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.TestHistory"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.Help"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.TestResults"
+            android:configChanges="orientation|screenLayout|screenSize" />
+        <activity
+            android:name=".ui.activities.TestableActivity"
+            android:configChanges="orientation|screenLayout|screenSize" />
 
         <service android:name=".NotificationService" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->

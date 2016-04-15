@@ -1,6 +1,7 @@
 package eu.depa.flang;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -13,14 +14,19 @@ public class BottomToast extends Toast {
     private String message;
 
     public BottomToast(Context pContext) {
-        super(pContext);
-        context = pContext;
+        this(pContext, "foo");
     }
 
-    public BottomToast(Context pContext, int pMessage) {
+
+    public BottomToast(Context pContext, @StringRes int pMessage) {
+        this(pContext, pContext.getString(pMessage));
+    }
+
+
+    public BottomToast(Context pContext, String pMessage) {
         super(pContext);
         context = pContext;
-        message = context.getString(pMessage);
+        message = pMessage;
         setView(getView());
     }
 

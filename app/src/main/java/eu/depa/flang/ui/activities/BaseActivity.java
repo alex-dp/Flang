@@ -1,8 +1,6 @@
 package eu.depa.flang.ui.activities;
 
 import android.app.ActivityManager;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -20,7 +18,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            BitmapDrawable bmpd = ((BitmapDrawable) getDrawable(R.drawable.ic_task));
+            BitmapDrawable bmpd = (BitmapDrawable) getDrawable(R.drawable.ic_task);
             Bitmap bmp = null;
             if (bmpd != null)
                 bmp = bmpd.getBitmap();
@@ -31,7 +29,6 @@ public class BaseActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        lockOrientation();
     }
 
     @Override
@@ -43,23 +40,5 @@ public class BaseActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unlockOrientation();
-    }
-
-    private void lockOrientation() {
-        if (super.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
-        } else {
-            super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE);
-        }
-    }
-
-    private void unlockOrientation() {
-        super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 }

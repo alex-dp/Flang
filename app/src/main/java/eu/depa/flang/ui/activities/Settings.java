@@ -43,6 +43,7 @@ public class Settings extends BaseActivity {
             interval.setOnPreferenceChangeListener(this);
             interval.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
             interval.getEditText().setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            interval.getEditText().setHint(R.string.minutes);
             version.setOnPreferenceClickListener(this);
             version.setSummary(BuildConfig.VERSION_NAME);
 
